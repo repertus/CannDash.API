@@ -30,9 +30,9 @@ namespace CannDash.API.Models
         public virtual User User { get; set; }
         
         //Many relationship
-        public virtual ICollection<Category> Categories { get; set; }
         public virtual ICollection<Customer> Customers { get; set; }
         public virtual ICollection<Driver> Drivers { get; set; }
+        public virtual ICollection<Inventory> Inventories { get; set; }
         public virtual ICollection<Order> Orders { get; set; }
     }
 }

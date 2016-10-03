@@ -13,7 +13,7 @@ namespace CannDash.API.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201609300658067_InitialMigration"; }
+            get { return "201610032028064_InitialMigration"; }
         }
         
         string IMigrationMetadata.Source

@@ -8,7 +8,8 @@ namespace CannDash.API.Models
     public class PickUp
     {
         public int DriverId { get; set; }
-        public int ProductId { get; set; }
+        public int InventoryId { get; set; }
+        public int? ProductId { get; set; }
         public int? Inv_Gram { get; set; }
         public int? Inv_TwoGrams { get; set; }
         public int? Inv_Eigth { get; set; }
@@ -18,6 +19,6 @@ namespace CannDash.API.Models
 
         //One relationship
         public virtual Driver Driver { get; set; }
-        public virtual Product Product { get; set; }
+        public virtual Inventory Inventory { get; set; }
     }
 }
