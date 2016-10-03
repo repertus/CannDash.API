@@ -24,7 +24,6 @@ namespace CannDash.API.Infrastructure
         public IDbSet<PickUp> PickUps { get; set; }
         public IDbSet<Product> Products { get; set; }
         public IDbSet<ProductOrder> ProductOrders { get; set; }
-        public IDbSet<ShippingAddress> ShippingAddresses { get; set; }
         public IDbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -118,16 +117,6 @@ namespace CannDash.API.Infrastructure
             modelBuilder.Entity<Price>()
                 .HasRequired(pr => pr.Product)
                 .WithRequiredDependent(p => p.Price);
-
-            modelBuilder.Entity<ShippingAddress>()
-                .HasMany(o => o.Orders)
-                .WithRequired(s => s.ShippingAddress)
-                .HasForeignKey(s => s.ShippingAddressId);
-
-            modelBuilder.Entity<Customer>()
-                .HasMany(s => s.ShippingAddresses)
-                .WithOptional(c => c.Customer)
-                .HasForeignKey(c => c.CustomerId);
         }
     }
 }

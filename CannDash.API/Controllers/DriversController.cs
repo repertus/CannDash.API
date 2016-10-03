@@ -13,47 +13,47 @@ using CannDash.API.Models;
 
 namespace CannDash.API.Controllers
 {
-    public class CustomersController : ApiController
+    public class DriversController : ApiController
     {
         private CannDashDataContext db = new CannDashDataContext();
 
-        // GET: api/Customers
-        public IQueryable<Customer> GetCustomers()
+        // GET: api/Drivers
+        public IQueryable<Driver> GetDrivers()
         {
-            return db.Customers;
+            return db.Drivers;
         }
 
-        // GET: api/Customers/5
-        [ResponseType(typeof(Customer))]
-        public IHttpActionResult GetCustomer(int id)
+        // GET: api/Drivers/5
+        [ResponseType(typeof(Driver))]
+        public IHttpActionResult GetDriver(int id)
         {
-            Customer customer = db.Customers.Find(id);
-            if (customer == null)
+            Driver driver = db.Drivers.Find(id);
+            if (driver == null)
             {
                 return NotFound();
             }
 
-            return Ok(customer);
+            return Ok(driver);
         }
 
-        // PUT: api/Customers/5
+        // PUT: api/Drivers/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutCustomer(int id, Customer customer)
+        public IHttpActionResult PutDriver(int id, Driver driver)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != customer.CustomerId)
+            if (id != driver.DriverId)
             {
                 return BadRequest();
             }
 
-            var customerToBeUpdated = db.Customers.Find(id);
+            var driverToBeUpdated = db.Drivers.Find(id);
 
-            db.Entry(customerToBeUpdated).CurrentValues.SetValues(customer);
-            db.Entry(customerToBeUpdated).State = EntityState.Modified;
+            db.Entry(driverToBeUpdated).CurrentValues.SetValues(driver);
+            db.Entry(driverToBeUpdated).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +61,7 @@ namespace CannDash.API.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CustomerExists(id))
+                if (!DriverExists(id))
                 {
                     return NotFound();
                 }
@@ -74,35 +74,35 @@ namespace CannDash.API.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Customers
-        [ResponseType(typeof(Customer))]
-        public IHttpActionResult PostCustomer(Customer customer)
+        // POST: api/Drivers
+        [ResponseType(typeof(Driver))]
+        public IHttpActionResult PostDriver(Driver driver)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Customers.Add(customer);
+            db.Drivers.Add(driver);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = customer.CustomerId }, customer);
+            return CreatedAtRoute("DefaultApi", new { id = driver.DriverId }, driver);
         }
 
-        // DELETE: api/Customers/5
-        [ResponseType(typeof(Customer))]
-        public IHttpActionResult DeleteCustomer(int id)
+        // DELETE: api/Drivers/5
+        [ResponseType(typeof(Driver))]
+        public IHttpActionResult DeleteDriver(int id)
         {
-            Customer customer = db.Customers.Find(id);
-            if (customer == null)
+            Driver driver = db.Drivers.Find(id);
+            if (driver == null)
             {
                 return NotFound();
             }
 
-            db.Customers.Remove(customer);
+            db.Drivers.Remove(driver);
             db.SaveChanges();
 
-            return Ok(customer);
+            return Ok(driver);
         }
 
         protected override void Dispose(bool disposing)
@@ -114,9 +114,9 @@ namespace CannDash.API.Controllers
             base.Dispose(disposing);
         }
 
-        private bool CustomerExists(int id)
+        private bool DriverExists(int id)
         {
-            return db.Customers.Count(e => e.CustomerId == id) > 0;
+            return db.Drivers.Count(e => e.DriverId == id) > 0;
         }
     }
 }

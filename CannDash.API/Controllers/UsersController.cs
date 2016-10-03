@@ -13,47 +13,44 @@ using CannDash.API.Models;
 
 namespace CannDash.API.Controllers
 {
-    public class CustomersController : ApiController
+    public class UsersController : ApiController
     {
         private CannDashDataContext db = new CannDashDataContext();
 
-        // GET: api/Customers
-        public IQueryable<Customer> GetCustomers()
+        // GET: api/Users
+        public IQueryable<User> GetUsers()
         {
-            return db.Customers;
+            return db.Users;
         }
 
-        // GET: api/Customers/5
-        [ResponseType(typeof(Customer))]
-        public IHttpActionResult GetCustomer(int id)
+        // GET: api/Users/5
+        [ResponseType(typeof(User))]
+        public IHttpActionResult GetUser(int id)
         {
-            Customer customer = db.Customers.Find(id);
-            if (customer == null)
+            User user = db.Users.Find(id);
+            if (user == null)
             {
                 return NotFound();
             }
 
-            return Ok(customer);
+            return Ok(user);
         }
 
-        // PUT: api/Customers/5
+        // PUT: api/Users/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutCustomer(int id, Customer customer)
+        public IHttpActionResult PutUser(int id, User user)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != customer.CustomerId)
+            if (id != user.UserId)
             {
                 return BadRequest();
             }
 
-            var customerToBeUpdated = db.Customers.Find(id);
-
-            db.Entry(customerToBeUpdated).CurrentValues.SetValues(customer);
-            db.Entry(customerToBeUpdated).State = EntityState.Modified;
+            db.Entry(user).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +58,7 @@ namespace CannDash.API.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CustomerExists(id))
+                if (!UserExists(id))
                 {
                     return NotFound();
                 }
@@ -74,35 +71,35 @@ namespace CannDash.API.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Customers
-        [ResponseType(typeof(Customer))]
-        public IHttpActionResult PostCustomer(Customer customer)
+        // POST: api/Users
+        [ResponseType(typeof(User))]
+        public IHttpActionResult PostUser(User user)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Customers.Add(customer);
+            db.Users.Add(user);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = customer.CustomerId }, customer);
+            return CreatedAtRoute("DefaultApi", new { id = user.UserId }, user);
         }
 
-        // DELETE: api/Customers/5
-        [ResponseType(typeof(Customer))]
-        public IHttpActionResult DeleteCustomer(int id)
+        // DELETE: api/Users/5
+        [ResponseType(typeof(User))]
+        public IHttpActionResult DeleteUser(int id)
         {
-            Customer customer = db.Customers.Find(id);
-            if (customer == null)
+            User user = db.Users.Find(id);
+            if (user == null)
             {
                 return NotFound();
             }
 
-            db.Customers.Remove(customer);
+            db.Users.Remove(user);
             db.SaveChanges();
 
-            return Ok(customer);
+            return Ok(user);
         }
 
         protected override void Dispose(bool disposing)
@@ -114,9 +111,9 @@ namespace CannDash.API.Controllers
             base.Dispose(disposing);
         }
 
-        private bool CustomerExists(int id)
+        private bool UserExists(int id)
         {
-            return db.Customers.Count(e => e.CustomerId == id) > 0;
+            return db.Users.Count(e => e.UserId == id) > 0;
         }
     }
 }

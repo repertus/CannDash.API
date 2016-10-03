@@ -13,6 +13,7 @@ namespace CannDash.API.Models
         public int DispensaryId { get; set; }
 
         public string CompanyName { get; set; }
+        public string WeedMapMenu { get; set; }
         public string Street { get; set; }
         public string UnitNo { get; set; }
         public string City { get; set; }

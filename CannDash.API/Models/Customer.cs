@@ -39,6 +39,5 @@ namespace CannDash.API.Models
 
         //Many relationship
         public virtual ICollection<Order> Orders { get; set; }
-        public virtual ICollection<ShippingAddress> ShippingAddresses { get; set; }
     }
 }

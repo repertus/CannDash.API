@@ -10,7 +10,6 @@ namespace CannDash.API.Models
         public int OrderId { get; set; }
         public int? DispensaryId { get; set; }
         public int? DriverId { get; set; }
-        public int? ShippingAddressId { get; set; }
 
         public string DeliveryNotes { get; set; }
         public bool? PickUp { get; set; }
@@ -29,9 +28,6 @@ namespace CannDash.API.Models
         public virtual Customer Customer { get; set; }
         public virtual Dispensary Dispensary { get; set; }
         public virtual Driver Driver { get; set; }
-
-        //One relationship
-        public virtual ShippingAddress ShippingAddress { get; set; }
 
         //Many relationship
         public virtual ICollection<ProductOrder> ProductOrders { get; set; }

@@ -150,7 +150,12 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\DispensariesController.cs" />
+    <Compile Include="Controllers\DriversController.cs" />
+    <Compile Include="Controllers\InventoriesController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
+    <Compile Include="Controllers\PickUpsController.cs" />
+    <Compile Include="Controllers\ProductOrdersController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -195,6 +200,14 @@
     <Compile Include="Migrations\201610020752319_ModifiedFKOnCustomerToShippingAddress.Designer.cs">
       <DependentUpon>201610020752319_ModifiedFKOnCustomerToShippingAddress.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201610022030229_RemovedShippingAddress.cs" />
+    <Compile Include="Migrations\201610022030229_RemovedShippingAddress.Designer.cs">
+      <DependentUpon>201610022030229_RemovedShippingAddress.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610031700205_UpdatedPickUpController.cs" />
+    <Compile Include="Migrations\201610031700205_UpdatedPickUpController.Designer.cs">
+      <DependentUpon>201610031700205_UpdatedPickUpController.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -206,7 +219,6 @@
     <Compile Include="Models\Price.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductOrder.cs" />
-    <Compile Include="Models\ShippingAddress.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -255,6 +267,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201610020752319_ModifiedFKOnCustomerToShippingAddress.resx">
       <DependentUpon>201610020752319_ModifiedFKOnCustomerToShippingAddress.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610022030229_RemovedShippingAddress.resx">
+      <DependentUpon>201610022030229_RemovedShippingAddress.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610031700205_UpdatedPickUpController.resx">
+      <DependentUpon>201610031700205_UpdatedPickUpController.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
