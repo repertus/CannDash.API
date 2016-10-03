@@ -160,9 +160,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\CannDashDataContext.cs" />
-    <Compile Include="Migrations\201610032028064_InitialMigration.cs" />
-    <Compile Include="Migrations\201610032028064_InitialMigration.Designer.cs">
-      <DependentUpon>201610032028064_InitialMigration.cs</DependentUpon>
+    <Compile Include="Migrations\201610032128419_InitialCreate.cs" />
+    <Compile Include="Migrations\201610032128419_InitialCreate.Designer.cs">
+      <DependentUpon>201610032128419_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Category.cs" />
@@ -194,8 +194,8 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201610032028064_InitialMigration.resx">
-      <DependentUpon>201610032028064_InitialMigration.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201610032128419_InitialCreate.resx">
+      <DependentUpon>201610032128419_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
