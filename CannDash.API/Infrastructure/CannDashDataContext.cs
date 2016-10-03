@@ -30,10 +30,7 @@ namespace CannDash.API.Infrastructure
         {
             //Composite key definitions
             modelBuilder.Entity<PickUp>()
-                .HasKey(p => new { p.DriverId, p.ProductId });
-
-            modelBuilder.Entity<ProductOrder>()
-                .HasKey(p => new { p.OrderId, p.ProductId });
+                .HasKey(p => new { p.DriverId, p.InventoryId });
 
             //Foreign key definitions
             modelBuilder.Entity<Category>()
@@ -52,7 +49,7 @@ namespace CannDash.API.Infrastructure
                 .HasForeignKey(d => d.DispensaryId);
 
             modelBuilder.Entity<Dispensary>()
-                .HasMany(c => c.Categories)
+                .HasMany(i => i.Inventories)
                 .WithOptional(d => d.Dispensary)
                 .HasForeignKey(d => d.DispensaryId);
 
@@ -71,20 +68,15 @@ namespace CannDash.API.Infrastructure
                 .WithRequired(d => d.Driver)
                 .HasForeignKey(d => d.DriverId);
 
+            modelBuilder.Entity<Inventory>()
+                .HasMany(p => p.Pickups)
+                .WithRequired(i => i.Inventory)
+                .HasForeignKey(i => i.InventoryId);
+
             modelBuilder.Entity<Order>()
                 .HasMany(p => p.ProductOrders)
                 .WithRequired(o => o.Order)
                 .HasForeignKey(o => o.OrderId);
-
-            modelBuilder.Entity<Product>()
-                .HasMany(o => o.ProductOrders)
-                .WithRequired(p => p.Product)
-                .HasForeignKey(p => p.ProductId);
-
-            modelBuilder.Entity<Product>()
-                .HasMany(o => o.PickUps)
-                .WithRequired(p => p.Product)
-                .HasForeignKey(p => p.ProductId);
 
             modelBuilder.Entity<User>()
                 .HasOptional(d => d.Dispensary)
@@ -103,16 +95,8 @@ namespace CannDash.API.Infrastructure
                 .WithOptionalDependent(d => d.Dispensary);
 
             modelBuilder.Entity<Product>()
-                .HasRequired(i => i.Inventory)
-                .WithRequiredPrincipal(p => p.Product);
-
-            modelBuilder.Entity<Product>()
                 .HasRequired(pr => pr.Price)
                 .WithRequiredPrincipal(p => p.Product);
-
-            modelBuilder.Entity<Inventory>()
-                .HasRequired(p => p.Product)
-                .WithRequiredDependent(i => i.Inventory);
 
             modelBuilder.Entity<Price>()
                 .HasRequired(pr => pr.Product)

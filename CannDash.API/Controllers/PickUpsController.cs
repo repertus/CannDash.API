@@ -23,12 +23,12 @@ namespace CannDash.API.Controllers
             return db.PickUps;
         }
 
-        // GET: api/PickUps/5/5
+        // GET: api/PickUps/5
         [ResponseType(typeof(PickUp))]
-        [HttpGet, Route("api/pickups/{driverId}/{productId}")]
-        public IHttpActionResult GetPickUp(int driverId, int productId)
+        [HttpGet, Route("api/pickups/{driverId}/{inventoryId}")]
+        public IHttpActionResult GetPickUp(int driverId, int inventoryId)
         {
-            PickUp pickUp = db.PickUps.Find(driverId, productId);
+            PickUp pickUp = db.PickUps.Find(driverId,inventoryId);
             if (pickUp == null)
             {
                 return NotFound();
@@ -39,15 +39,15 @@ namespace CannDash.API.Controllers
 
         // PUT: api/PickUps/5
         [ResponseType(typeof(void))]
-        [HttpPut, Route("api/pickups/{driverId}/{productId}")]
-        public IHttpActionResult PutPickUp(int driverId, int productId, PickUp pickUp)
+        [HttpPut, Route("api/pickups/{driverId}/{inventoryId}")]
+        public IHttpActionResult PutPickUp(int driverId, int inventoryId, PickUp pickUp)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (driverId != pickUp.DriverId || productId != pickUp.ProductId)
+            if (driverId != pickUp.DriverId || inventoryId != pickUp.InventoryId)
             {
                 return BadRequest();
             }
@@ -60,7 +60,7 @@ namespace CannDash.API.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!PickUpExists(pickUp.DriverId,pickUp.ProductId))
+                if (!PickUpExists(pickUp.DriverId, pickUp.InventoryId))
                 {
                     return NotFound();
                 }
@@ -75,6 +75,7 @@ namespace CannDash.API.Controllers
 
         // POST: api/PickUps
         [ResponseType(typeof(PickUp))]
+        [HttpPost, Route("api/pickups/{driverId}/{inventoryId}")]
         public IHttpActionResult PostPickUp(PickUp pickUp)
         {
             if (!ModelState.IsValid)
@@ -89,11 +90,11 @@ namespace CannDash.API.Controllers
                 db.SaveChanges();
 
                 pickUp.Driver = db.Drivers.Find(pickUp.DriverId);
-                pickUp.Product = db.Products.Find(pickUp.ProductId);
+                pickUp.Inventory = db.Inventories.Find(pickUp.InventoryId);
             }
             catch (DbUpdateException)
             {
-                if (PickUpExists(pickUp.DriverId,pickUp.ProductId))
+                if (PickUpExists(pickUp.DriverId,pickUp.InventoryId))
                 {
                     return Conflict();
                 }
@@ -108,10 +109,10 @@ namespace CannDash.API.Controllers
 
         // DELETE: api/PickUps/5
         [ResponseType(typeof(PickUp))]
-        [HttpDelete, Route("api/pickups/{driverId}/{productId}")]
-        public IHttpActionResult DeletePickUp(int driverId, int productId)
+        [HttpDelete, Route("api/pickups/{driverId}/{inventoryId}")]
+        public IHttpActionResult DeletePickUp(int driverId, int inventoryId)
         {
-            PickUp pickUp = db.PickUps.Find(driverId,productId);
+            PickUp pickUp = db.PickUps.Find(driverId, inventoryId);
             if (pickUp == null)
             {
                 return NotFound();
@@ -132,9 +133,9 @@ namespace CannDash.API.Controllers
             base.Dispose(disposing);
         }
 
-        private bool PickUpExists(int driverId, int productId)
+        private bool PickUpExists(int driverId, int inventoryId)
         {
-            return db.PickUps.Count(e => e.DriverId == driverId && e.ProductId == productId) > 0;
+            return db.PickUps.Count(e => e.DriverId == driverId && e.InventoryId == inventoryId) > 0;
         }
     }
 }

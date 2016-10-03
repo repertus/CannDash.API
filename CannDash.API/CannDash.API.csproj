@@ -160,53 +160,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\CannDashDataContext.cs" />
-    <Compile Include="Migrations\201609300658067_InitialMigration.cs" />
-    <Compile Include="Migrations\201609300658067_InitialMigration.Designer.cs">
-      <DependentUpon>201609300658067_InitialMigration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201610010416373_ModifiedOneToOne.cs" />
-    <Compile Include="Migrations\201610010416373_ModifiedOneToOne.Designer.cs">
-      <DependentUpon>201610010416373_ModifiedOneToOne.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201610010426212_AddedNullableChanges.cs" />
-    <Compile Include="Migrations\201610010426212_AddedNullableChanges.Designer.cs">
-      <DependentUpon>201610010426212_AddedNullableChanges.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201610010458559_AddedFieldsToUser.cs" />
-    <Compile Include="Migrations\201610010458559_AddedFieldsToUser.Designer.cs">
-      <DependentUpon>201610010458559_AddedFieldsToUser.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201610010502525_UserChanges.cs" />
-    <Compile Include="Migrations\201610010502525_UserChanges.Designer.cs">
-      <DependentUpon>201610010502525_UserChanges.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201610012148068_AdjustedUserFK.cs" />
-    <Compile Include="Migrations\201610012148068_AdjustedUserFK.Designer.cs">
-      <DependentUpon>201610012148068_AdjustedUserFK.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201610020127522_ChangesToUserPtoD.cs" />
-    <Compile Include="Migrations\201610020127522_ChangesToUserPtoD.Designer.cs">
-      <DependentUpon>201610020127522_ChangesToUserPtoD.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201610020359262_AddedDispensarySeedData.cs" />
-    <Compile Include="Migrations\201610020359262_AddedDispensarySeedData.Designer.cs">
-      <DependentUpon>201610020359262_AddedDispensarySeedData.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201610020447547_AddedCustomerDriverSeedData.cs" />
-    <Compile Include="Migrations\201610020447547_AddedCustomerDriverSeedData.Designer.cs">
-      <DependentUpon>201610020447547_AddedCustomerDriverSeedData.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201610020752319_ModifiedFKOnCustomerToShippingAddress.cs" />
-    <Compile Include="Migrations\201610020752319_ModifiedFKOnCustomerToShippingAddress.Designer.cs">
-      <DependentUpon>201610020752319_ModifiedFKOnCustomerToShippingAddress.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201610022030229_RemovedShippingAddress.cs" />
-    <Compile Include="Migrations\201610022030229_RemovedShippingAddress.Designer.cs">
-      <DependentUpon>201610022030229_RemovedShippingAddress.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201610031700205_UpdatedPickUpController.cs" />
-    <Compile Include="Migrations\201610031700205_UpdatedPickUpController.Designer.cs">
-      <DependentUpon>201610031700205_UpdatedPickUpController.cs</DependentUpon>
+    <Compile Include="Migrations\201610032128419_InitialCreate.cs" />
+    <Compile Include="Migrations\201610032128419_InitialCreate.Designer.cs">
+      <DependentUpon>201610032128419_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Category.cs" />
@@ -238,41 +194,8 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201609300658067_InitialMigration.resx">
-      <DependentUpon>201609300658067_InitialMigration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610010416373_ModifiedOneToOne.resx">
-      <DependentUpon>201610010416373_ModifiedOneToOne.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610010426212_AddedNullableChanges.resx">
-      <DependentUpon>201610010426212_AddedNullableChanges.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610010458559_AddedFieldsToUser.resx">
-      <DependentUpon>201610010458559_AddedFieldsToUser.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610010502525_UserChanges.resx">
-      <DependentUpon>201610010502525_UserChanges.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610012148068_AdjustedUserFK.resx">
-      <DependentUpon>201610012148068_AdjustedUserFK.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610020127522_ChangesToUserPtoD.resx">
-      <DependentUpon>201610020127522_ChangesToUserPtoD.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610020359262_AddedDispensarySeedData.resx">
-      <DependentUpon>201610020359262_AddedDispensarySeedData.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610020447547_AddedCustomerDriverSeedData.resx">
-      <DependentUpon>201610020447547_AddedCustomerDriverSeedData.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610020752319_ModifiedFKOnCustomerToShippingAddress.resx">
-      <DependentUpon>201610020752319_ModifiedFKOnCustomerToShippingAddress.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610022030229_RemovedShippingAddress.resx">
-      <DependentUpon>201610022030229_RemovedShippingAddress.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610031700205_UpdatedPickUpController.resx">
-      <DependentUpon>201610031700205_UpdatedPickUpController.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201610032128419_InitialCreate.resx">
+      <DependentUpon>201610032128419_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
