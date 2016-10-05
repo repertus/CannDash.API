@@ -45,7 +45,7 @@ namespace CannDash.API.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (id != productOrder.OrderId)
+            if (id != productOrder.ProductOrderId)
             {
                 return BadRequest();
             }
@@ -81,24 +81,9 @@ namespace CannDash.API.Controllers
             }
 
             db.ProductOrders.Add(productOrder);
+            db.SaveChanges();
 
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateException)
-            {
-                if (ProductOrderExists(productOrder.OrderId))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return CreatedAtRoute("DefaultApi", new { id = productOrder.OrderId }, productOrder);
+            return CreatedAtRoute("DefaultApi", new { id = productOrder.ProductOrderId }, productOrder);
         }
 
         // DELETE: api/ProductOrders/5
@@ -128,7 +113,7 @@ namespace CannDash.API.Controllers
 
         private bool ProductOrderExists(int id)
         {
-            return db.ProductOrders.Count(e => e.OrderId == id) > 0;
+            return db.ProductOrders.Count(e => e.ProductOrderId == id) > 0;
         }
     }
 }

@@ -12,11 +12,6 @@ namespace CannDash.API.Models
 
         public string CategoryName { get; set; }
 
-
-        
-        //One relationship
-        public virtual Dispensary Dispensary { get; set; }
-
         //Many relationship
         public virtual ICollection<Product> Products { get; set; }
     }

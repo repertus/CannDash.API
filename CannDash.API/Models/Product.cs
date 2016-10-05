@@ -21,12 +21,6 @@ namespace CannDash.API.Models
 
         //One relationship
         public virtual Category Category { get; set; }
-        public virtual Inventory Inventory { get; set; }
         public virtual Price Price { get; set; }
-
-        //Many relationship
-        public virtual ICollection<ProductOrder> ProductOrders { get; set; }
-        public virtual ICollection<PickUp> PickUps { get; set; }
-
     }
 }
