@@ -18,9 +18,25 @@ namespace CannDash.API.Controllers
         private CannDashDataContext db = new CannDashDataContext();
 
         // GET: api/Drivers
-        public IQueryable<Driver> GetDrivers()
+        public dynamic GetDrivers()
         {
-            return db.Drivers;
+            return db.Drivers.Select(d => new
+            {
+                d.DriverId,
+                d.DispensaryId,
+                d.DriverPic,
+                d.DriversLicense,
+                d.Email,
+                d.FirstName,
+                d.LastName,
+                d.LicensePlate,
+                d.Phone,
+                d.UnitsInRoute,
+                d.VehicleColor,
+                d.VehicleInsurance,
+                d.VehicleMake,
+                d.VehicleModel
+            });
         }
 
         // GET: api/Drivers/5
@@ -33,7 +49,58 @@ namespace CannDash.API.Controllers
                 return NotFound();
             }
 
-            return Ok(driver);
+            return Ok(new
+            {
+                driver.DriverId,
+                driver.DriverPic,
+                driver.DriversLicense,
+                driver.Email,
+                driver.FirstName,
+                driver.LastName,
+                driver.LicensePlate,
+                driver.Phone,
+                driver.UnitsInRoute,
+                driver.VehicleColor,
+                driver.VehicleInsurance,
+                driver.VehicleMake,
+                driver.VehicleModel,
+                Pickups = driver.PickUps.Select(dp => new
+                {
+                    Inventory = new
+                    {
+                        dp.InventoryId,
+                        dp.Inventory.Inv_Eigth,
+                        dp.Inventory.Inv_Gram,
+                        dp.Inventory.Inv_HalfOnce,
+                        dp.Inventory.Inv_Ounce,
+                        dp.Inventory.Inv_Quarter,
+                        dp.Inventory.Inv_TwoGrams,
+                        dp.Inventory.Mobile
+                    }
+                }),
+                Orders = driver.Orders.Select(o => new
+                {
+                    o.OrderId,
+                    o.City,
+                    o.DeliveryNotes,
+                    CustomerName = o.Customer.FirstName + " " + o.Customer.LastName,
+                    DispensaryName = o.Dispensary.CompanyName,
+                    o.ItemQuantity,
+                    o.PickUp,
+                    o.State,
+                    o.Street,
+                    o.TotalCost,
+                    o.UnitNo,
+                    o.ZipCode
+                }),
+                Dispensary = new
+                {
+                    driver.Dispensary.DispensaryId,
+                    driver.Dispensary.CompanyName,
+                    driver.Dispensary.Email,
+                    driver.Dispensary.Phone
+                }
+            });
         }
 
         // PUT: api/Drivers/5

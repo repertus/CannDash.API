@@ -10,6 +10,7 @@ namespace CannDash.API.Models
         public int OrderId { get; set; }
         public int? DispensaryId { get; set; }
         public int? DriverId { get; set; }
+        public DateTime? OrderDate { get; set; }
 
         public string DeliveryNotes { get; set; }
         public bool? PickUp { get; set; }
@@ -23,6 +24,7 @@ namespace CannDash.API.Models
 
         public int ItemQuantity { get; set; }
         public int TotalCost { get; set; }
+        public bool OrderDelivered { get; set; }
 
         //One relationship
         public virtual Customer Customer { get; set; }

@@ -18,9 +18,24 @@ namespace CannDash.API.Controllers
         private CannDashDataContext db = new CannDashDataContext();
 
         // GET: api/Dispensaries
-        public IQueryable<Dispensary> GetDispensaries()
+        public dynamic GetDispensaries()
         {
-            return db.Dispensaries;
+            return db.Dispensaries.Select(d => new
+            { 
+                d.DispensaryId,
+                d.CompanyName,
+                d.WeedMapMenu,
+                d.Street,
+                d.UnitNo,
+                d.City,
+                d.State,
+                d.ZipCode,
+                d.Email,
+                d.Phone,
+                d.Zone,
+                d.StatePermit,
+                d.PermitExpirationDate
+            });
         }
 
         // GET: api/Dispensaries/5
@@ -33,7 +48,23 @@ namespace CannDash.API.Controllers
                 return NotFound();
             }
 
-            return Ok(dispensary);
+            return Ok(new
+            {
+                dispensary.DispensaryId,
+                dispensary.CompanyName,
+                dispensary.WeedMapMenu,
+                dispensary.Street,
+                dispensary.UnitNo,
+                dispensary.City,
+                dispensary.State,
+                dispensary.ZipCode,
+                dispensary.Email,
+                dispensary.Phone,
+                dispensary.Zone,
+                dispensary.StatePermit,
+                dispensary.PermitExpirationDate
+                
+            });
         }
 
         // PUT: api/Dispensaries/5

@@ -18,9 +18,21 @@ namespace CannDash.API.Controllers
         private CannDashDataContext db = new CannDashDataContext();
 
         // GET: api/PickUps
-        public IQueryable<PickUp> GetPickUps()
+        public dynamic GetPickUps()
         {
-            return db.PickUps;
+            return db.PickUps.Select(p => new
+            {
+                p.DriverId,
+                p.InventoryId,
+                p.ProductId,
+                p.Inv_Gram,
+                p.Inv_TwoGrams,
+                p.Inv_Eigth,
+                p.Inv_Quarter,
+                p.Inv_HalfOnce,
+                p.Inv_Ounce,
+                p.Inv_Each
+            });
         }
 
         // GET: api/PickUps/5
@@ -34,7 +46,19 @@ namespace CannDash.API.Controllers
                 return NotFound();
             }
 
-            return Ok(pickUp);
+            return Ok(new
+            {
+                pickUp.DriverId,
+                pickUp.InventoryId,
+                pickUp.ProductId,
+                pickUp.Inv_Gram,
+                pickUp.Inv_TwoGrams,
+                pickUp.Inv_Eigth,
+                pickUp.Inv_Quarter,
+                pickUp.Inv_HalfOnce,
+                pickUp.Inv_Ounce,
+                pickUp.Inv_Each
+            });
         }
 
         // PUT: api/PickUps/5

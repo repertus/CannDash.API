@@ -18,9 +18,30 @@ namespace CannDash.API.Controllers
         private CannDashDataContext db = new CannDashDataContext();
 
         // GET: api/Customers
-        public IQueryable<Customer> GetCustomers()
+        public dynamic GetCustomers()
         {
-            return db.Customers;
+            return db.Customers.Select(c => new
+            {
+                c.CustomerId,
+                c.DispensaryId,
+                c.FirstName,
+                c.LastName,
+                c.Street,
+                c.UnitNo,
+                c.City,
+                c.State,
+                c.ZipCode,
+                c.Email,
+                c.Phone,
+                c.Gender,
+                c.DateOfBirth,
+                c.Age,
+                c.MedicalReason,
+                c.DriversLicense,
+                c.MmicId,
+                c.MmicExpiration,
+                c.DoctorLetter
+            });
         }
 
         // GET: api/Customers/5
@@ -33,7 +54,28 @@ namespace CannDash.API.Controllers
                 return NotFound();
             }
 
-            return Ok(customer);
+            return Ok(new
+            {
+                customer.CustomerId,
+                customer.DispensaryId,
+                customer.FirstName,
+                customer.LastName,
+                customer.Street,
+                customer.UnitNo,
+                customer.City,
+                customer.State,
+                customer.ZipCode,
+                customer.Email,
+                customer.Phone,
+                customer.Gender,
+                customer.DateOfBirth,
+                customer.Age,
+                customer.MedicalReason,
+                customer.DriversLicense,
+                customer.MmicId,
+                customer.MmicExpiration,
+                customer.DoctorLetter
+            });
         }
 
         // PUT: api/Customers/5

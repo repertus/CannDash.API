@@ -18,9 +18,18 @@ namespace CannDash.API.Controllers
         private CannDashDataContext db = new CannDashDataContext();
 
         // GET: api/ProductOrders
-        public IQueryable<ProductOrder> GetProductOrders()
+        public dynamic GetProductOrders()
         {
-            return db.ProductOrders;
+            return db.ProductOrders.Select(p => new
+            {
+                p.ProductOrderId,
+                p.OrderId,
+                p.ProductId,
+                p.OrderQty,
+                p.UnitPrice,
+                p.Discount,
+                p.TotalSale
+            });
         }
 
         // GET: api/ProductOrders/5
@@ -33,7 +42,16 @@ namespace CannDash.API.Controllers
                 return NotFound();
             }
 
-            return Ok(productOrder);
+            return Ok(new
+            {
+                productOrder.ProductOrderId,
+                productOrder.OrderId,
+                productOrder.ProductId,
+                productOrder.OrderQty,
+                productOrder.UnitPrice,
+                productOrder.Discount,
+                productOrder.TotalSale
+            });
         }
 
         // PUT: api/ProductOrders/5
