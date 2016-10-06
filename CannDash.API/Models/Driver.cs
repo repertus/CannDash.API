@@ -10,6 +10,7 @@ namespace CannDash.API.Models
     {
         public int DriverId { get; set; }
         public int DispensaryId { get; set; }
+        public bool DriverCheckIn { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Phone { get; set; }
