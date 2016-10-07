@@ -18,6 +18,7 @@ namespace CannDash.API.Controllers
         private CannDashDataContext db = new CannDashDataContext();
 
         // GET: api/ProductOrders
+        //Todo: authorize role for only admin
         public dynamic GetProductOrders()
         {
             return db.ProductOrders.Select(p => new
@@ -102,22 +103,6 @@ namespace CannDash.API.Controllers
             db.SaveChanges();
 
             return CreatedAtRoute("DefaultApi", new { id = productOrder.ProductOrderId }, productOrder);
-        }
-
-        // DELETE: api/ProductOrders/5
-        [ResponseType(typeof(ProductOrder))]
-        public IHttpActionResult DeleteProductOrder(int id)
-        {
-            ProductOrder productOrder = db.ProductOrders.Find(id);
-            if (productOrder == null)
-            {
-                return NotFound();
-            }
-
-            db.ProductOrders.Remove(productOrder);
-            db.SaveChanges();
-
-            return Ok(productOrder);
         }
 
         protected override void Dispose(bool disposing)

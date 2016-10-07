@@ -18,6 +18,7 @@ namespace CannDash.API.Controllers
         private CannDashDataContext db = new CannDashDataContext();
 
         // GET: api/Drivers
+        //Todo: authorize role for only admin
         public dynamic GetDrivers()
         {
             return db.Drivers.Select(d => new
@@ -154,22 +155,6 @@ namespace CannDash.API.Controllers
             db.SaveChanges();
 
             return CreatedAtRoute("DefaultApi", new { id = driver.DriverId }, driver);
-        }
-
-        // DELETE: api/Drivers/5
-        [ResponseType(typeof(Driver))]
-        public IHttpActionResult DeleteDriver(int id)
-        {
-            Driver driver = db.Drivers.Find(id);
-            if (driver == null)
-            {
-                return NotFound();
-            }
-
-            db.Drivers.Remove(driver);
-            db.SaveChanges();
-
-            return Ok(driver);
         }
 
         protected override void Dispose(bool disposing)

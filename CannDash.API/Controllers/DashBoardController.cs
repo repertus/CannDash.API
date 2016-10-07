@@ -23,6 +23,7 @@ namespace CannDash.API.Controllers
         }
 
         // GET: api/Dashboard/5
+        //Todo: authorize role for only admin
         [ResponseType(typeof(Dispensary))]
         public IHttpActionResult GetDispensary(int id)
         {
