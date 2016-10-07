@@ -18,6 +18,7 @@ namespace CannDash.API.Controllers
         private CannDashDataContext db = new CannDashDataContext();
 
         // GET: api/Inventories
+        //Todo: authorize role for only admin
         public dynamic GetInventories()
         {
             return db.Inventories.Select(i => new
@@ -123,22 +124,6 @@ namespace CannDash.API.Controllers
             }
 
             return CreatedAtRoute("DefaultApi", new { id = inventory.InventoryId }, inventory);
-        }
-
-        // DELETE: api/Inventories/5
-        [ResponseType(typeof(Inventory))]
-        public IHttpActionResult DeleteInventory(int id)
-        {
-            Inventory inventory = db.Inventories.Find(id);
-            if (inventory == null)
-            {
-                return NotFound();
-            }
-
-            db.Inventories.Remove(inventory);
-            db.SaveChanges();
-
-            return Ok(inventory);
         }
 
         protected override void Dispose(bool disposing)

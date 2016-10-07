@@ -18,6 +18,7 @@ namespace CannDash.API.Controllers
         private CannDashDataContext db = new CannDashDataContext();
 
         // GET: api/Dispensaries
+        //Todo: authorize role for only admin
         public dynamic GetDispensaries()
         {
             return db.Dispensaries.Select(d => new
@@ -64,6 +65,175 @@ namespace CannDash.API.Controllers
                 dispensary.StatePermit,
                 dispensary.PermitExpirationDate
                 
+            });
+        }
+
+        // GET: api/dispensaries/5/customers
+        [ResponseType(typeof(Customer))]
+        [HttpGet, Route("api/dispensaries/{dispensaryId}/customers")]
+        public IHttpActionResult GetDispensaryCustomers(int dispensaryId)
+        {
+            Dispensary dispensary = db.Dispensaries.Find(dispensaryId);
+            if (dispensary == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(new
+            {
+                Customers = dispensary.Customers.Select(c => new
+                {
+                    c.CustomerId,
+                    c.DispensaryId,
+                    c.FirstName,
+                    c.LastName,
+                    c.Street,
+                    c.UnitNo,
+                    c.City,
+                    c.State,
+                    c.ZipCode,
+                    c.Email,
+                    c.Phone,
+                    c.Gender,
+                    c.DateOfBirth,
+                    c.Age,
+                    c.MedicalReason,
+                    c.DriversLicense,
+                    c.MmicId,
+                    c.MmicExpiration,
+                    c.DoctorLetter
+                }),
+            });
+        }
+
+        // GET: api/Dispensaries/5/Drivers
+        [ResponseType(typeof(Driver))]
+        [HttpGet, Route("api/dispensaries/{dispensaryId}/drivers")]
+        public IHttpActionResult GetDispensaryDrivers(int dispensaryId)
+        {
+            Dispensary dispensary = db.Dispensaries.Find(dispensaryId);
+            if (dispensary == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(new
+            {
+                Drivers = dispensary.Drivers.Select(d => new
+                {
+                    d.DriverId,
+                    d.DriverPic,
+                    d.DriversLicense,
+                    d.Email,
+                    d.FirstName,
+                    d.LastName,
+                    d.LicensePlate,
+                    d.Phone,
+                    d.UnitsInRoute,
+                    d.VehicleColor,
+                    d.VehicleInsurance,
+                    d.VehicleMake,
+                    d.VehicleModel,
+                    Pickups = d.PickUps.Select(dp => new
+                    {
+                        Inventory = new
+                        {
+                            dp.InventoryId,
+                            dp.Inventory.Inv_Eigth,
+                            dp.Inventory.Inv_Gram,
+                            dp.Inventory.Inv_HalfOnce,
+                            dp.Inventory.Inv_Ounce,
+                            dp.Inventory.Inv_Quarter,
+                            dp.Inventory.Inv_TwoGrams,
+                            dp.Inventory.Mobile
+                        }
+                    }),
+                    Orders = d.Orders.Select(o => new
+                    {
+                        o.OrderId,
+                        o.City,
+                        o.DeliveryNotes,
+                        CustomerName = o.Customer.FirstName + " " + o.Customer.LastName,
+                        DispensaryName = o.Dispensary.CompanyName,
+                        o.ItemQuantity,
+                        o.PickUp,
+                        o.State,
+                        o.Street,
+                        o.TotalCost,
+                        o.UnitNo,
+                        o.ZipCode
+                    }),
+                    Dispensary = new
+                    {
+                        d.Dispensary.DispensaryId,
+                        d.Dispensary.CompanyName,
+                        d.Dispensary.Email,
+                        d.Dispensary.Phone
+                    }
+                }),
+
+            });
+        }
+
+        // GET: api/Dispensaries/5/Inventories
+        [ResponseType(typeof(Inventory))]
+        [HttpGet, Route("api/dispensaries/{dispensaryId}/inventories")]
+        public IHttpActionResult GetDispensaryInventory(int dispensaryId)
+        {
+            Dispensary dispensary = db.Dispensaries.Find(dispensaryId);
+            if (dispensary == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(new
+            {
+                Inventory = dispensary.Inventories.Select(i => new
+                {
+                    i.InventoryId,
+                    i.DispensaryId,
+                    i.Mobile,
+                    i.Inv_Gram,
+                    i.Inv_TwoGrams,
+                    i.Inv_Eigth,
+                    i.Inv_Quarter,
+                    i.Inv_HalfOnce,
+                    i.Inv_Ounce,
+                    i.Inv_Each
+                })       
+            });
+        }
+
+        // GET: api/Orders/5
+        [ResponseType(typeof(Order))]
+        [HttpGet, Route("api/dispensaries/{dispensaryId}/orders")]
+        public IHttpActionResult GetOrder(int dispensaryId)
+        {
+            Dispensary dispensary = db.Dispensaries.Find(dispensaryId);
+            if (dispensary == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(new
+            {
+                Order = dispensary.Orders.Select(o => new
+                {
+                    o.OrderId,
+                    o.DispensaryId,
+                    o.DriverId,
+                    o.OrderDate,
+                    o.DeliveryNotes,
+                    o.PickUp,
+                    o.Street,
+                    o.UnitNo,
+                    o.City,
+                    o.State,
+                    o.ZipCode,
+                    o.ItemQuantity,
+                    o.TotalCost,
+                    o.OrderDelivered
+                })               
             });
         }
 
@@ -115,22 +285,6 @@ namespace CannDash.API.Controllers
             db.SaveChanges();
 
             return CreatedAtRoute("DefaultApi", new { id = dispensary.DispensaryId }, dispensary);
-        }
-
-        // DELETE: api/Dispensaries/5
-        [ResponseType(typeof(Dispensary))]
-        public IHttpActionResult DeleteDispensary(int id)
-        {
-            Dispensary dispensary = db.Dispensaries.Find(id);
-            if (dispensary == null)
-            {
-                return NotFound();
-            }
-
-            db.Dispensaries.Remove(dispensary);
-            db.SaveChanges();
-
-            return Ok(dispensary);
         }
 
         protected override void Dispose(bool disposing)

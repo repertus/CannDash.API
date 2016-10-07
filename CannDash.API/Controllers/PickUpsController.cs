@@ -18,6 +18,7 @@ namespace CannDash.API.Controllers
         private CannDashDataContext db = new CannDashDataContext();
 
         // GET: api/PickUps
+        //Todo: authorize role for only admin
         public dynamic GetPickUps()
         {
             return db.PickUps.Select(p => new
@@ -129,23 +130,6 @@ namespace CannDash.API.Controllers
             }
 
             return CreatedAtRoute("DefaultApi", new { id = pickUp.DriverId }, pickUp);
-        }
-
-        // DELETE: api/PickUps/5
-        [ResponseType(typeof(PickUp))]
-        [HttpDelete, Route("api/pickups/{driverId}/{inventoryId}")]
-        public IHttpActionResult DeletePickUp(int driverId, int inventoryId)
-        {
-            PickUp pickUp = db.PickUps.Find(driverId, inventoryId);
-            if (pickUp == null)
-            {
-                return NotFound();
-            }
-
-            db.PickUps.Remove(pickUp);
-            db.SaveChanges();
-
-            return Ok(pickUp);
         }
 
         protected override void Dispose(bool disposing)

@@ -18,6 +18,7 @@ namespace CannDash.API.Controllers
         private CannDashDataContext db = new CannDashDataContext();
 
         // GET: api/Customers
+        //Todo: authorize role for only admin
         public dynamic GetCustomers()
         {
             return db.Customers.Select(c => new
@@ -44,11 +45,12 @@ namespace CannDash.API.Controllers
             });
         }
 
-        // GET: api/Customers/5
+        // GET: api/customers/5/
         [ResponseType(typeof(Customer))]
-        public IHttpActionResult GetCustomer(int id)
+        [HttpGet, Route("api/customers/{customerId}")]
+        public IHttpActionResult GetCustomer(int customerId)
         {
-            Customer customer = db.Customers.Find(id);
+            Customer customer = db.Customers.Find(customerId);
             if (customer == null)
             {
                 return NotFound();
@@ -80,22 +82,20 @@ namespace CannDash.API.Controllers
 
         // PUT: api/Customers/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutCustomer(int id, Customer customer)
+        [HttpPut, Route("api/customers/{customerId}")]
+        public IHttpActionResult PutCustomer(int customerId, Customer customer)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != customer.CustomerId)
+            if (customerId != customer.CustomerId)
             {
                 return BadRequest();
             }
 
-            var customerToBeUpdated = db.Customers.Find(id);
-
-            db.Entry(customerToBeUpdated).CurrentValues.SetValues(customer);
-            db.Entry(customerToBeUpdated).State = EntityState.Modified;
+            db.Entry(customer).State = EntityState.Modified;
 
             try
             {
@@ -103,7 +103,7 @@ namespace CannDash.API.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CustomerExists(id))
+                if (!CustomerExists(customerId))
                 {
                     return NotFound();
                 }
@@ -131,22 +131,6 @@ namespace CannDash.API.Controllers
             return CreatedAtRoute("DefaultApi", new { id = customer.CustomerId }, customer);
         }
 
-        // DELETE: api/Customers/5
-        [ResponseType(typeof(Customer))]
-        public IHttpActionResult DeleteCustomer(int id)
-        {
-            Customer customer = db.Customers.Find(id);
-            if (customer == null)
-            {
-                return NotFound();
-            }
-
-            db.Customers.Remove(customer);
-            db.SaveChanges();
-
-            return Ok(customer);
-        }
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -156,9 +140,9 @@ namespace CannDash.API.Controllers
             base.Dispose(disposing);
         }
 
-        private bool CustomerExists(int id)
+        private bool CustomerExists(int customerId)
         {
-            return db.Customers.Count(e => e.CustomerId == id) > 0;
+            return db.Customers.Count(e => e.CustomerId == customerId) > 0;
         }
     }
 }
