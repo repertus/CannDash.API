@@ -19,9 +19,18 @@ namespace CannDash.API.Repository
         {
             var dispensary = _dataContext.Dispensaries.Find(dispensaryId);
 
-            return (from driver in dispensary.Drivers
+            return ((from driver in dispensary.Drivers
                     where driver.DispensaryId == dispensaryId && driver.DriverCheckIn == true
-                    select driver.DriverId).Count();
+                    select driver.DriverId).Count());
+        }
+
+        public int GetNumberOfDriversOffForDispensary(int dispensaryId)
+        {
+            var dispensary = _dataContext.Dispensaries.Find(dispensaryId);
+
+            return ((from driver in dispensary.Drivers
+                    where driver.DispensaryId == dispensaryId && driver.DriverCheckIn == false
+                    select driver.DriverId).Count());
         }
     }
 }
