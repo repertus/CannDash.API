@@ -208,7 +208,9 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\CustomerRepository.cs" />
+    <Compile Include="Repository\DateRepository.cs" />
     <Compile Include="Repository\DriverRepository.cs" />
+    <Compile Include="Repository\GraphDataRepository.cs" />
     <Compile Include="Repository\OrderRepository.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -17,6 +17,7 @@ namespace CannDash.API.Controllers
         private CustomerRepository customerRepository;
         private DriverRepository driverRepository;
         private OrderRepository orderRepository;
+        private GraphDataRepository graphDataRepository;
 
         public DashBoardController()
         {
@@ -24,6 +25,7 @@ namespace CannDash.API.Controllers
             customerRepository = new CustomerRepository(db);
             driverRepository = new DriverRepository(db);
             orderRepository = new OrderRepository(db);
+            graphDataRepository = new GraphDataRepository(db);
         }
 
         // GET: api/Dashboard/5
@@ -47,16 +49,16 @@ namespace CannDash.API.Controllers
                             .GroupBy(s => s.OrderDate.Value.Date)
                             .Select(t => new
                             {
-                                X = t.Key.Date,
-                                Y = t.Sum(s => s.TotalCost),
+                                SalesDay = t.Key.Date,
+                                Sales = t.Sum(s => s.TotalCost),
                             }).ToList();
 
 
-            var emptyData = Enumerable.Range(0, (int)Math.Round((now-startDate).TotalDays))
+            var emptyData = Enumerable.Range(0, (int)Math.Round((now - startDate).TotalDays))
                 .Select(i => new
                 {
-                    X = startDate.AddDays(i),
-                    Y = 0
+                    SalesDay = startDate.AddDays(i),
+                    Sales = 0
                 });
 
             if (dispensary == null)
@@ -69,71 +71,47 @@ namespace CannDash.API.Controllers
                 dispensary.DispensaryId,
                 dispensary.CompanyName,
                 TotalCustomers = dispensary.Customers.Count(),
-                TotalExpirations = customerRepository.GetNumberOfExpiredCustomersForDispensary(id, startDate, endDate),
+                TotalExpirations = customerRepository.GetNumberOfExpiredCustomersForDispensary(id),
                 DriversWorking = driverRepository.GetNumberOfDriversWorkingForDispensary(id),
                 DriversOff = driverRepository.GetNumberOfDriversOffForDispensary(id),
                 OrdersDelivered = orderRepository.GetNumberOfOrdersDeliveredForDispensary(id),
                 OrdersPendingDelivery = orderRepository.GetNumberOfPendingDeliveryOrdersForDispensary(id),
                 CurrentDaySales = orderRepository.GetCurrentDaySalesForDispensary(id),
-                CurrentMonthSales = orderRepository.GetCurrentMonthSalesForDispensary(id, startDate, endDate),
-                LastThirtyDaySales =
-                dispensary.Orders
-                    .Where(s => s.DispensaryId == id && s.OrderDelivered == true && (s.OrderDate >= lastThirtyDays && s.OrderDate <= DateTime.Today))
-                    .GroupBy(s => s.OrderDate.Value.Date)
-                    .Select(t => new
-                    {
-                        salesDay = t.Key,
-                        dailySales = t.Sum(s => s.TotalCost),
-                        dailyOrders = t.Count()
-                    })
-                    .OrderBy(t => t.salesDay),
-              StackBarGraph = new
-              {
+                CurrentMonthSales = orderRepository.GetCurrentMonthSalesForDispensary(id),
+
+                StackBarGraph = new
+                {
                     Title = "Sales Summary",
                     Ranges = new
                     {
-                        TM = "This Month",
-                        LM = "Last Month",
+                        TW = "This Week",
+                        LW = "Last Week",
                         W2 = "2 Weeks Ago"
 
                     },
-                    MainChart = new
-                    {
-                        Key = "Daily Sales",
-                        Values = new
-                        {
-                            TM = selectedNumberDates.Union(emptyData
-                                .Where(e => !selectedNumberDates.Select(x => x.X).Contains(e.X)))
-                                .Select(t => new
-                                {
-                                    X = t.X.ToString("dd"),
-                                    Y = t.Y
-                                })
-                                .OrderBy(t => t.X),
+                    MainChart = new object[] {
+                        new {
+                            Key = "Daily Sales",
+                            Values = new
+                            {
+                                TW = graphDataRepository.GetChartDataForThisWeekSalesForDispensary(id),
+                                LW = graphDataRepository.GetChartDataForLastWeekSalesForDispensary(id),
+                                W2 = graphDataRepository.GetChartDataForLastTwoWeeksSalesForDispensary(id)
 
-                            LM = dispensary.Orders
-                                .Where(s => s.DispensaryId == id && s.OrderDelivered == true && (s.OrderDate >= lastMonthStartDate && s.OrderDate <= lastMonthEndDate))
-                                .GroupBy(s => s.OrderDate.Value.Date)
-                                .Select(t => new
-                                {
-                                    X = t.Key.ToString("dd"),
-                                    Y = t.Sum(s => s.TotalCost),
-                                })
-                               .OrderBy(t => t.X),
-
-                            W2 = dispensary.Orders
-                                .Where(s => s.DispensaryId == id && s.OrderDelivered == true && (s.OrderDate >= lastTenDays && s.OrderDate <= DateTime.Today))
-                                .GroupBy(s => s.OrderDate.Value.Date)
-                                .Select(t => new
-                                {
-                                    X = t.Key.ToString("dd"),
-                                    Y = t.Sum(s => s.TotalCost),
-                                })
-                               .OrderBy(t => t.X),
-
+                            }
+                        },
+                        new {
+                            Key = "Daily Orders",
+                            Values = new
+                            {
+                                TW = graphDataRepository.GetChartDataForThisWeekOrdersForDispensary(id),
+                                LW = graphDataRepository.GetChartDataForLastWeekOrdersForDispensary(id),
+                                W2 = graphDataRepository.GetChartDataForLastTwoWeeksOrdersForDispensary(id)
+                            }
                         }
-                    }
-              }
+
+                }
+                }
             });
         }
     }
