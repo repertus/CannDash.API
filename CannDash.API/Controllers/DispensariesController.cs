@@ -204,7 +204,7 @@ namespace CannDash.API.Controllers
             });
         }
 
-        // GET: api/Orders/5
+        // GET: api/Orders/5/Orders
         [ResponseType(typeof(Order))]
         [HttpGet, Route("api/dispensaries/{dispensaryId}/orders")]
         public IHttpActionResult GetOrder(int dispensaryId)
@@ -222,6 +222,7 @@ namespace CannDash.API.Controllers
                     o.OrderId,
                     o.DispensaryId,
                     o.DriverId,
+                    o.CustomerId,
                     o.OrderDate,
                     o.DeliveryNotes,
                     o.PickUp,

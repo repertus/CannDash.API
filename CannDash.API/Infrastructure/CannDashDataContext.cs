@@ -38,6 +38,11 @@ namespace CannDash.API.Infrastructure
                 .WithRequired(c => c.Category)
                 .HasForeignKey(c => c.CategoryId);
 
+            modelBuilder.Entity<Customer>()
+                .HasMany(o => o.Orders)
+                .WithOptional(c => c.Customer)
+                .HasForeignKey(c => c.CustomerId);
+
             modelBuilder.Entity<Dispensary>()
                 .HasMany(c => c.Customers)
                 .WithRequired(d => d.Dispensary)
