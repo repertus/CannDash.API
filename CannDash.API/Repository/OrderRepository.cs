@@ -22,8 +22,8 @@ namespace CannDash.API.Repository
             var dispensary = _dataContext.Dispensaries.Find(dispensaryId);
 
             return ((from order in dispensary.Orders
-                    where order.DispensaryId == dispensaryId && order.OrderDelivered == true && order.OrderDate == DateTime.Today
-                    select order.OrderId).Count());
+                    where order.DispensaryId == dispensaryId && order.OrderStatus == 3 && (order.OrderDate >= DateTime.Today && order.OrderDate < DateTime.Today.AddDays(1))
+                     select order.OrderId).Count());
         }
 
         public int GetNumberOfPendingDeliveryOrdersForDispensary(int dispensaryId)
@@ -31,7 +31,7 @@ namespace CannDash.API.Repository
             var dispensary = _dataContext.Dispensaries.Find(dispensaryId);
 
             return ((from order in dispensary.Orders
-                     where order.DispensaryId == dispensaryId && order.OrderDelivered == false && order.OrderDate == DateTime.Today
+                     where order.DispensaryId == dispensaryId && order.OrderStatus == 1 && (order.OrderDate >= DateTime.Today && order.OrderDate < DateTime.Today.AddDays(1))
                      select order.OrderId).Count());
         }
 
@@ -40,7 +40,7 @@ namespace CannDash.API.Repository
             var dispensary = _dataContext.Dispensaries.Find(dispensaryId);
 
             return ((from sales in dispensary.Orders
-                     where sales.DispensaryId == dispensaryId && sales.OrderDelivered == true && sales.OrderDate == DateTime.Today
+                     where sales.DispensaryId == dispensaryId && sales.OrderStatus == 3 && (sales.OrderDate >= DateTime.Today && sales.OrderDate < DateTime.Today.AddDays(1))
                      select sales.TotalCost).Sum());
         }
 
@@ -49,7 +49,7 @@ namespace CannDash.API.Repository
             var dispensary = _dataContext.Dispensaries.Find(dispensaryId);
 
             return ((from sales in dispensary.Orders
-                     where sales.DispensaryId == dispensaryId && sales.OrderDelivered == true && (sales.OrderDate >= _dateRepository.startDate() && sales.OrderDate <= _dateRepository.endDate())
+                     where sales.DispensaryId == dispensaryId && sales.OrderStatus == 3 && (sales.OrderDate >= _dateRepository.startDate() && sales.OrderDate <= _dateRepository.endDate())
                      select sales.TotalCost).Sum());
         }
     }

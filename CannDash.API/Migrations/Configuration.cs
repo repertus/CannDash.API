@@ -15,6 +15,7 @@ namespace CannDash.API.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
+            AutomaticMigrationDataLossAllowed = true;
         }
 
         protected override void Seed(CannDash.API.Infrastructure.CannDashDataContext context)

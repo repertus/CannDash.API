@@ -45,7 +45,7 @@ namespace CannDash.API.Controllers
 
 
             var selectedNumberDates = dispensary.Orders
-                            .Where(s => s.DispensaryId == id && s.OrderDelivered == true && (s.OrderDate >= startDate && s.OrderDate <= now))
+                            .Where(s => s.DispensaryId == id && s.OrderStatus == 3 && (s.OrderDate >= startDate && s.OrderDate <= now))
                             .GroupBy(s => s.OrderDate.Value.Date)
                             .Select(t => new
                             {

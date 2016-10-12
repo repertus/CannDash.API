@@ -37,7 +37,7 @@ namespace CannDash.API.Controllers
                 o.ZipCode,
                 o.ItemQuantity,
                 o.TotalCost,
-                o.OrderDelivered
+                o.OrderStatus
             });
         }
 
@@ -67,7 +67,7 @@ namespace CannDash.API.Controllers
                 order.ZipCode,
                 order.ItemQuantity,
                 order.TotalCost,
-                order.OrderDelivered
+                order.OrderStatus
             });
         }
 

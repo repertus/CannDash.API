@@ -198,6 +198,10 @@
     <Compile Include="Migrations\201610112331153_AddForeignKeyToOrdersForCustomers.Designer.cs">
       <DependentUpon>201610112331153_AddForeignKeyToOrdersForCustomers.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201610120004106_ChangeDataTypeOfOrderDelivered.cs" />
+    <Compile Include="Migrations\201610120004106_ChangeDataTypeOfOrderDelivered.Designer.cs">
+      <DependentUpon>201610120004106_ChangeDataTypeOfOrderDelivered.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -247,6 +251,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201610112331153_AddForeignKeyToOrdersForCustomers.resx">
       <DependentUpon>201610112331153_AddForeignKeyToOrdersForCustomers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610120004106_ChangeDataTypeOfOrderDelivered.resx">
+      <DependentUpon>201610120004106_ChangeDataTypeOfOrderDelivered.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

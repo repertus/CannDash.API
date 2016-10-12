@@ -25,7 +25,7 @@ namespace CannDash.API.Models
 
         public int ItemQuantity { get; set; }
         public int TotalCost { get; set; }
-        public bool OrderDelivered { get; set; }
+        public int OrderStatus { get; set; }
 
         //One relationship
         public virtual Customer Customer { get; set; }

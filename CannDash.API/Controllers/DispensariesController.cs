@@ -221,8 +221,18 @@ namespace CannDash.API.Controllers
                 {
                     o.OrderId,
                     o.DispensaryId,
-                    o.DriverId,
+
+                    DriverInfo = new
+                    {
+                        o.Driver.FirstName,
+                        o.Driver.LastName
+                    },
                     o.CustomerId,
+                    CustomerInfo = new
+                    {
+                        o.Customer.FirstName,
+                        o.Customer.LastName
+                    },
                     o.OrderDate,
                     o.DeliveryNotes,
                     o.PickUp,
@@ -233,7 +243,7 @@ namespace CannDash.API.Controllers
                     o.ZipCode,
                     o.ItemQuantity,
                     o.TotalCost,
-                    o.OrderDelivered
+                    o.OrderStatus
                 })               
             });
         }

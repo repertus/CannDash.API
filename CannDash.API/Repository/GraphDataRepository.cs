@@ -23,7 +23,7 @@ namespace CannDash.API.Repository
             var dispensary = _dataContext.Dispensaries.Find(dispensaryId);
 
             var selectedNumberDates = dispensary.Orders
-                            .Where(s => s.DispensaryId == dispensaryId && s.OrderDelivered == true && (s.OrderDate >= dateRepository.startDate() && s.OrderDate <= dateRepository.todaysDate()))
+                            .Where(s => s.DispensaryId == dispensaryId && s.OrderStatus == 3 && (s.OrderDate >= dateRepository.startDate() && s.OrderDate <= dateRepository.todaysDate()))
                             .GroupBy(s => s.OrderDate.Value.Date)
                             .Select(t => new
                             {
@@ -62,7 +62,7 @@ namespace CannDash.API.Repository
             var dispensary = _dataContext.Dispensaries.Find(dispensaryId);
 
             var selectedNumberDates = dispensary.Orders
-                            .Where(s => s.DispensaryId == dispensaryId && s.OrderDelivered == true && (s.OrderDate >= dateRepository.lastWeekStartDate() && s.OrderDate <= dateRepository.lastWeekEndDate()))
+                            .Where(s => s.DispensaryId == dispensaryId && s.OrderStatus == 3 && (s.OrderDate >= dateRepository.lastWeekStartDate() && s.OrderDate <= dateRepository.lastWeekEndDate()))
                             .GroupBy(s => s.OrderDate.Value.Date)
                             .Select(t => new
                             {
@@ -101,7 +101,7 @@ namespace CannDash.API.Repository
             var dispensary = _dataContext.Dispensaries.Find(dispensaryId);
 
             var selectedNumberDates = dispensary.Orders
-                            .Where(s => s.DispensaryId == dispensaryId && s.OrderDelivered == true && (s.OrderDate >= dateRepository.lastTwoWeeksStartDate() && s.OrderDate <= dateRepository.lastWeekEndDate()))
+                            .Where(s => s.DispensaryId == dispensaryId && s.OrderStatus == 3 && (s.OrderDate >= dateRepository.lastTwoWeeksStartDate() && s.OrderDate <= dateRepository.lastWeekEndDate()))
                             .GroupBy(s => s.OrderDate.Value.Date)
                             .Select(t => new
                             {
@@ -140,7 +140,7 @@ namespace CannDash.API.Repository
             var dispensary = _dataContext.Dispensaries.Find(dispensaryId);
 
             var selectedNumberDates = dispensary.Orders
-                            .Where(s => s.DispensaryId == dispensaryId && s.OrderDelivered == true && (s.OrderDate >= dateRepository.startDate() && s.OrderDate <= dateRepository.todaysDate()))
+                            .Where(s => s.DispensaryId == dispensaryId && s.OrderStatus == 3 && (s.OrderDate >= dateRepository.startDate() && s.OrderDate <= dateRepository.todaysDate()))
                             .GroupBy(s => s.OrderDate.Value.Date)
                             .Select(t => new
                             {
@@ -179,7 +179,7 @@ namespace CannDash.API.Repository
             var dispensary = _dataContext.Dispensaries.Find(dispensaryId);
 
             var selectedNumberDates = dispensary.Orders
-                            .Where(s => s.DispensaryId == dispensaryId && s.OrderDelivered == true && (s.OrderDate >= dateRepository.lastWeekStartDate() && s.OrderDate <= dateRepository.lastWeekEndDate()))
+                            .Where(s => s.DispensaryId == dispensaryId && s.OrderStatus == 3 && (s.OrderDate >= dateRepository.lastWeekStartDate() && s.OrderDate <= dateRepository.lastWeekEndDate()))
                             .GroupBy(s => s.OrderDate.Value.Date)
                             .Select(t => new
                             {
@@ -218,7 +218,7 @@ namespace CannDash.API.Repository
             var dispensary = _dataContext.Dispensaries.Find(dispensaryId);
 
             var selectedNumberDates = dispensary.Orders
-                            .Where(s => s.DispensaryId == dispensaryId && s.OrderDelivered == true && (s.OrderDate >= dateRepository.lastTwoWeeksStartDate() && s.OrderDate <= dateRepository.lastWeekEndDate()))
+                            .Where(s => s.DispensaryId == dispensaryId && s.OrderStatus == 3 && (s.OrderDate >= dateRepository.lastTwoWeeksStartDate() && s.OrderDate <= dateRepository.lastWeekEndDate()))
                             .GroupBy(s => s.OrderDate.Value.Date)
                             .Select(t => new
                             {
