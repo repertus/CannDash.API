@@ -221,7 +221,7 @@ namespace CannDash.API.Controllers
                 {
                     o.OrderId,
                     o.DispensaryId,
-
+                    o.DriverId,
                     DriverInfo = new
                     {
                         o.Driver.FirstName,
@@ -231,7 +231,9 @@ namespace CannDash.API.Controllers
                     CustomerInfo = new
                     {
                         o.Customer.FirstName,
-                        o.Customer.LastName
+                        o.Customer.LastName,
+                        o.Customer.Email,
+                        o.Customer.Phone
                     },
                     o.OrderDate,
                     o.DeliveryNotes,
