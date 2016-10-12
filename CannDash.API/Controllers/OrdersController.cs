@@ -115,6 +115,8 @@ namespace CannDash.API.Controllers
                 return BadRequest(ModelState);
             }
 
+            order.OrderDate = DateTime.Now;
+            order.OrderStatus = 1;
             db.Orders.Add(order);
             db.SaveChanges();
 
