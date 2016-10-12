@@ -33,33 +33,7 @@ namespace CannDash.API.Controllers
         [ResponseType(typeof(Dispensary))]
         public IHttpActionResult GetDispensary(int id)
         {
-            DateTime now = DateTime.Now;
-            var startDate = new DateTime(now.Year, now.Month, 1);
-            var endDate = startDate.AddMonths(1).AddDays(-1);
-            var lastMonthStartDate = startDate.AddMonths(-1);
-            var lastMonthEndDate = lastMonthStartDate.AddMonths(1).AddDays(-1);
-            var lastTenDays = DateTime.Today.AddDays(-14);
-            var lastThirtyDays = DateTime.Today.AddDays(-30);
-
             Dispensary dispensary = db.Dispensaries.Find(id);
-
-
-            var selectedNumberDates = dispensary.Orders
-                            .Where(s => s.DispensaryId == id && s.OrderStatus == 3 && (s.OrderDate >= startDate && s.OrderDate <= now))
-                            .GroupBy(s => s.OrderDate.Value.Date)
-                            .Select(t => new
-                            {
-                                SalesDay = t.Key.Date,
-                                Sales = t.Sum(s => s.TotalCost),
-                            }).ToList();
-
-
-            var emptyData = Enumerable.Range(0, (int)Math.Round((now - startDate).TotalDays))
-                .Select(i => new
-                {
-                    SalesDay = startDate.AddDays(i),
-                    Sales = 0
-                });
 
             if (dispensary == null)
             {

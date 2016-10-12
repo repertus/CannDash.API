@@ -218,7 +218,7 @@ namespace CannDash.API.Repository
             var dispensary = _dataContext.Dispensaries.Find(dispensaryId);
 
             var selectedNumberDates = dispensary.Orders
-                            .Where(s => s.DispensaryId == dispensaryId && s.OrderStatus == 3 && (s.OrderDate >= dateRepository.lastTwoWeeksStartDate() && s.OrderDate <= dateRepository.lastWeekEndDate()))
+                            .Where(s => s.DispensaryId == dispensaryId && s.OrderStatus == 3 && (s.OrderDate >= dateRepository.lastTwoWeeksStartDate() && s.OrderDate <= dateRepository.lastWeekStartDate()))
                             .GroupBy(s => s.OrderDate.Value.Date)
                             .Select(t => new
                             {

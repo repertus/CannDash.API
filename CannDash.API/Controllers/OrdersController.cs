@@ -57,6 +57,13 @@ namespace CannDash.API.Controllers
                 order.DispensaryId,
                 order.DriverId,
                 order.CustomerId,
+                CustomerInfo = new
+                {
+                    order.Customer.FirstName,
+                    order.Customer.LastName,
+                    order.Customer.Email,
+                    order.Customer.Phone
+                },
                 order.OrderDate,
                 order.DeliveryNotes,
                 order.PickUp,
