@@ -237,6 +237,7 @@ namespace CannDash.API.Controllers
                         o.Customer.Email,
                         o.Customer.Phone
                     },
+                    o.CustomerAddressId,
                     o.OrderDate,
                     o.DeliveryNotes,
                     o.PickUp,

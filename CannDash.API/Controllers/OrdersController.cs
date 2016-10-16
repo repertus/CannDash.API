@@ -28,6 +28,7 @@ namespace CannDash.API.Controllers
                 o.DispensaryOrderNo,
                 o.DriverId,
                 o.CustomerId,
+                o.CustomerAddressId,
                 o.OrderDate,
                 o.DeliveryNotes,
                 o.PickUp,
@@ -62,6 +63,7 @@ namespace CannDash.API.Controllers
                 order.DispensaryId,
                 order.DriverId,
                 order.CustomerId,
+                order.CustomerAddressId,
                 CustomerInfo = new
                 {
                     order.Customer.FirstName,
@@ -77,6 +79,10 @@ namespace CannDash.API.Controllers
                 order.City,
                 order.State,
                 order.ZipCode,
+                order.MenuCategoryId,
+                order.CategoryName,
+                order.ProductId,
+                order.ProductName,
                 order.ItemQuantity,
                 order.TotalCost,
                 order.OrderStatus

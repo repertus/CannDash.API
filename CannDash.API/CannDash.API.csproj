@@ -202,6 +202,10 @@
     <Compile Include="Migrations\201610120004106_ChangeDataTypeOfOrderDelivered.Designer.cs">
       <DependentUpon>201610120004106_ChangeDataTypeOfOrderDelivered.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201610162223244_AddedAdditionalChangestoSchemas.cs" />
+    <Compile Include="Migrations\201610162223244_AddedAdditionalChangestoSchemas.Designer.cs">
+      <DependentUpon>201610162223244_AddedAdditionalChangestoSchemas.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -255,6 +259,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201610120004106_ChangeDataTypeOfOrderDelivered.resx">
       <DependentUpon>201610120004106_ChangeDataTypeOfOrderDelivered.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610162223244_AddedAdditionalChangestoSchemas.resx">
+      <DependentUpon>201610162223244_AddedAdditionalChangestoSchemas.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
