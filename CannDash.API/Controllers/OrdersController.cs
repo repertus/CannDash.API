@@ -25,6 +25,7 @@ namespace CannDash.API.Controllers
             {
                 o.OrderId,
                 o.DispensaryId,
+                o.DispensaryOrderNo,
                 o.DriverId,
                 o.CustomerId,
                 o.OrderDate,
@@ -35,6 +36,10 @@ namespace CannDash.API.Controllers
                 o.City,
                 o.State,
                 o.ZipCode,
+                o.MenuCategoryId,
+                o.CategoryName,
+                o.ProductId,
+                o.ProductName,
                 o.ItemQuantity,
                 o.TotalCost,
                 o.OrderStatus

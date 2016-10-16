@@ -42,7 +42,7 @@ namespace CannDash.API.Repository
                 case 6:
                     firstDayOfWeek = todaysDate().AddDays(-5);
                     break;
-                case 7:
+                case 0:
                     firstDayOfWeek = todaysDate().AddDays(-6);
                     break;
             }

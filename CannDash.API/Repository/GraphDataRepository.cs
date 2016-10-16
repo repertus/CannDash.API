@@ -50,8 +50,8 @@ namespace CannDash.API.Repository
                                 .GroupBy(t => t.SalesDay.Date)
                                 .Select(r => new
                                 {
-                                    SalesDay = r.Key.Date.ToString("ddd"),
-                                    Sales = r.Sum(t => t.Sales)
+                                    X = r.Key.Date.ToString("ddd"),
+                                    Y = r.Sum(t => t.Sales)
                                 });
 
             return thisWeeksSales;
@@ -89,8 +89,8 @@ namespace CannDash.API.Repository
                                 .GroupBy(t => t.SalesDay.Date)
                                 .Select(r => new
                                 {
-                                    SalesDay = r.Key.Date.ToString("ddd"),
-                                    Sales = r.Sum(t => t.Sales)
+                                    X = r.Key.Date.ToString("ddd"),
+                                    Y = r.Sum(t => t.Sales)
                                 });
 
             return lastWeekSales;
@@ -101,7 +101,7 @@ namespace CannDash.API.Repository
             var dispensary = _dataContext.Dispensaries.Find(dispensaryId);
 
             var selectedNumberDates = dispensary.Orders
-                            .Where(s => s.DispensaryId == dispensaryId && s.OrderStatus == 3 && (s.OrderDate >= dateRepository.lastTwoWeeksStartDate() && s.OrderDate <= dateRepository.lastWeekEndDate()))
+                            .Where(s => s.DispensaryId == dispensaryId && s.OrderStatus == 3 && (s.OrderDate >= dateRepository.lastTwoWeeksStartDate() && s.OrderDate <= dateRepository.lastWeekStartDate()))
                             .GroupBy(s => s.OrderDate.Value.Date)
                             .Select(t => new
                             {
@@ -128,8 +128,8 @@ namespace CannDash.API.Repository
                                 .GroupBy(t => t.SalesDay.Date)
                                 .Select(r => new
                                 {
-                                    SalesDay = r.Key.Date.ToString("ddd"),
-                                    Sales = r.Sum(t => t.Sales)
+                                    X = r.Key.Date.ToString("ddd"),
+                                    Y = r.Sum(t => t.Sales)
                                 });
 
             return lastTwoWeeksSales;
@@ -167,8 +167,8 @@ namespace CannDash.API.Repository
                                 .GroupBy(t => t.SalesDay.Date)
                                 .Select(r => new
                                 {
-                                    SalesDay = r.Key.Date.ToString("ddd"),
-                                    Sales = r.Sum(t => t.Orders)
+                                    X = r.Key.Date.ToString("ddd"),
+                                    Y = r.Sum(t => t.Orders)
                                 });
 
             return thisWeeksSales;
@@ -206,8 +206,8 @@ namespace CannDash.API.Repository
                                 .GroupBy(t => t.SalesDay.Date)
                                 .Select(r => new
                                 {
-                                    SalesDay = r.Key.Date.ToString("ddd"),
-                                    Orders = r.Sum(t => t.Orders)
+                                    X = r.Key.Date.ToString("ddd"),
+                                    Y = r.Sum(t => t.Orders)
                                 });
 
             return lastWeekSales;
@@ -245,8 +245,8 @@ namespace CannDash.API.Repository
                                 .GroupBy(t => t.SalesDay.Date)
                                 .Select(r => new
                                 {
-                                    SalesDay = r.Key.Date.ToString("ddd"),
-                                    Orders = r.Sum(t => t.Orders)
+                                    X = r.Key.Date.ToString("ddd"),
+                                    Y = r.Sum(t => t.Orders)
                                 });
 
             return lastTwoWeeksSales;

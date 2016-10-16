@@ -25,6 +25,7 @@ namespace CannDash.API.Controllers
             {
                 d.DriverId,
                 d.DispensaryId,
+                d.DriverCheckIn,
                 d.DriverPic,
                 d.DriversLicense,
                 d.Email,

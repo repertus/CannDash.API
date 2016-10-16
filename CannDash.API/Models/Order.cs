@@ -11,6 +11,7 @@ namespace CannDash.API.Models
         public int? DispensaryId { get; set; }
         public int? DriverId { get; set; }
         public int? CustomerId { get; set; }
+        public string DispensaryOrderNo { get; set; }
         public DateTime? OrderDate { get; set; }
 
         public string DeliveryNotes { get; set; }
@@ -23,6 +24,10 @@ namespace CannDash.API.Models
         public string State { get; set; }
         public int ZipCode { get; set; }
 
+        public int? MenuCategoryId { get; set; }
+        public string CategoryName { get; set; }
+        public int? ProductId { get; set; }
+        public string ProductName { get; set; }
         public int ItemQuantity { get; set; }
         public int TotalCost { get; set; }
         public int OrderStatus { get; set; }

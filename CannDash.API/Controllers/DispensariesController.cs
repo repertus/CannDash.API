@@ -123,6 +123,7 @@ namespace CannDash.API.Controllers
                 {
                     d.DriverId,
                     d.DriverPic,
+                    d.DriverCheckIn,
                     d.DriversLicense,
                     d.Email,
                     d.FirstName,
@@ -204,7 +205,7 @@ namespace CannDash.API.Controllers
             });
         }
 
-        // GET: api/Orders/5/Orders
+        // GET: api/Dispensaries/5/Orders
         [ResponseType(typeof(Order))]
         [HttpGet, Route("api/dispensaries/{dispensaryId}/orders")]
         public IHttpActionResult GetOrder(int dispensaryId)
@@ -221,6 +222,7 @@ namespace CannDash.API.Controllers
                 {
                     o.OrderId,
                     o.DispensaryId,
+                    o.DispensaryOrderNo,
                     o.DriverId,
                     DriverInfo = new
                     {
@@ -243,6 +245,10 @@ namespace CannDash.API.Controllers
                     o.City,
                     o.State,
                     o.ZipCode,
+                    o.MenuCategoryId,
+                    o.CategoryName,
+                    o.ProductId,
+                    o.ProductName,
                     o.ItemQuantity,
                     o.TotalCost,
                     o.OrderStatus
