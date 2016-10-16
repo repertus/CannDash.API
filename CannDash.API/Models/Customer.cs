@@ -12,6 +12,7 @@ namespace CannDash.API.Models
         //[ForeignKey("User")]
         public int CustomerId { get; set; }
         public int DispensaryId { get; set; }
+        public int CustomerAddressId { get; set; }
 
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -38,6 +39,7 @@ namespace CannDash.API.Models
         public virtual User User { get; set; }
 
         //Many relationship
+        public virtual ICollection<CustomerAddress> CustomerAddresses { get; set; }
         public virtual ICollection<Order> Orders { get; set; }
     }
 }

@@ -11,6 +11,7 @@ namespace CannDash.API.Models
         public int? DispensaryId { get; set; }
         public int? DriverId { get; set; }
         public int? CustomerId { get; set; }
+        public int? CustomerAddressId { get; set; }
         public string DispensaryOrderNo { get; set; }
         public DateTime? OrderDate { get; set; }
 
@@ -34,6 +35,7 @@ namespace CannDash.API.Models
 
         //One relationship
         public virtual Customer Customer { get; set; }
+        public virtual CustomerAddress CustomerAddress { get; set; }
         public virtual Dispensary Dispensary { get; set; }
         public virtual Driver Driver { get; set; }
 
