@@ -58,35 +58,45 @@ namespace CannDash.API.Controllers
             }
 
             return Ok(new
-            {
-                order.OrderId,
-                order.DispensaryId,
-                order.DriverId,
-                order.CustomerId,
-                order.CustomerAddressId,
-                CustomerInfo = new
                 {
-                    order.Customer.FirstName,
-                    order.Customer.LastName,
-                    order.Customer.Email,
-                    order.Customer.Phone
-                },
-                order.OrderDate,
-                order.DeliveryNotes,
-                order.PickUp,
-                order.Street,
-                order.UnitNo,
-                order.City,
-                order.State,
-                order.ZipCode,
-                order.MenuCategoryId,
-                order.CategoryName,
-                order.ProductId,
-                order.ProductName,
-                order.ItemQuantity,
-                order.TotalCost,
-                order.OrderStatus
-            });
+                    order.OrderId,
+                    order.DispensaryId,
+                    order.DriverId,
+                    order.CustomerId,
+                    order.CustomerAddressId,
+                    CustomerInfo = new
+                    {
+                        order.Customer.FirstName,
+                        order.Customer.LastName,
+                        order.Customer.Email,
+                        order.Customer.Phone
+                    },
+                    ProductOrder = order.ProductOrders.Select(p => new
+                    {
+                        p.Discount,
+                        p.Order,
+                        p.OrderId,
+                        p.ProductId,
+                        p.ProductOrderId,
+                        p.TotalSale,
+                        p.UnitPrice
+                    }),
+                    order.OrderDate,
+                    order.DeliveryNotes,
+                    order.PickUp,
+                    order.Street,
+                    order.UnitNo,
+                    order.City,
+                    order.State,
+                    order.ZipCode,
+                    order.MenuCategoryId,
+                    order.CategoryName,
+                    order.ProductId,
+                    order.ProductName,
+                    order.ItemQuantity,
+                    order.TotalCost,
+                    order.OrderStatus
+                });
         }
 
         // PUT: api/Orders/5
