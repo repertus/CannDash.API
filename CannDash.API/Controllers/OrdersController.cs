@@ -21,7 +21,7 @@ namespace CannDash.API.Controllers
         //Todo: authorize role for only admin
         public dynamic GetOrders()
         {
-            return db.Orders.Select(o => new
+            return db.Orders.OrderByDescending(o => o.OrderDate).Select(o => new
             {
                 o.OrderId,
                 o.DispensaryId,
