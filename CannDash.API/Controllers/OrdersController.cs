@@ -74,7 +74,6 @@ namespace CannDash.API.Controllers
                     ProductOrder = order.ProductOrders.Select(p => new
                     {
                         p.Discount,
-                        p.Order,
                         p.OrderId,
                         p.ProductId,
                         p.ProductOrderId,
