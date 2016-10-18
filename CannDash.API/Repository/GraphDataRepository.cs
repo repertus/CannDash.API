@@ -28,7 +28,7 @@ namespace CannDash.API.Repository
                             .Select(t => new
                             {
                                 SalesDay = t.Key.Date,
-                                Sales = t.Sum(s => s.TotalCost),
+                                Sales = t.Sum(s => s.TotalOrderSale),
                             }).ToList();
 
 
@@ -67,7 +67,7 @@ namespace CannDash.API.Repository
                             .Select(t => new
                             {
                                 SalesDay = t.Key.Date,
-                                Sales = t.Sum(s => s.TotalCost),
+                                Sales = t.Sum(s => s.TotalOrderSale),
                             }).ToList();
 
 
@@ -106,7 +106,7 @@ namespace CannDash.API.Repository
                             .Select(t => new
                             {
                                 SalesDay = t.Key.Date,
-                                Sales = t.Sum(s => s.TotalCost),
+                                Sales = t.Sum(s => s.TotalOrderSale),
                             }).ToList();
 
 

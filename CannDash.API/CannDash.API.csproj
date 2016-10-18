@@ -206,6 +206,18 @@
     <Compile Include="Migrations\201610162223244_AddedAdditionalChangestoSchemas.Designer.cs">
       <DependentUpon>201610162223244_AddedAdditionalChangestoSchemas.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201610171704586_UpdatedProductOrderFields.cs" />
+    <Compile Include="Migrations\201610171704586_UpdatedProductOrderFields.Designer.cs">
+      <DependentUpon>201610171704586_UpdatedProductOrderFields.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610171716085_ModifiedDriverSchemaRemovedUnitInRoute.cs" />
+    <Compile Include="Migrations\201610171716085_ModifiedDriverSchemaRemovedUnitInRoute.Designer.cs">
+      <DependentUpon>201610171716085_ModifiedDriverSchemaRemovedUnitInRoute.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610172020506_ProductOrderSchemaChange.cs" />
+    <Compile Include="Migrations\201610172020506_ProductOrderSchemaChange.Designer.cs">
+      <DependentUpon>201610172020506_ProductOrderSchemaChange.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -262,6 +274,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201610162223244_AddedAdditionalChangestoSchemas.resx">
       <DependentUpon>201610162223244_AddedAdditionalChangestoSchemas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610171704586_UpdatedProductOrderFields.resx">
+      <DependentUpon>201610171704586_UpdatedProductOrderFields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610171716085_ModifiedDriverSchemaRemovedUnitInRoute.resx">
+      <DependentUpon>201610171716085_ModifiedDriverSchemaRemovedUnitInRoute.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610172020506_ProductOrderSchemaChange.resx">
+      <DependentUpon>201610172020506_ProductOrderSchemaChange.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

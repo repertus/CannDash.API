@@ -78,7 +78,7 @@ namespace CannDash.API.Migrations
                 }
             }
 
-            if (!context.Customers.Any())
+            if (!context.Drivers.Any())
             {
                 for (int i = 0; i < 5; i++)
                 {

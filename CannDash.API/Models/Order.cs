@@ -24,13 +24,7 @@ namespace CannDash.API.Models
         public string City { get; set; }
         public string State { get; set; }
         public int ZipCode { get; set; }
-
-        public int? MenuCategoryId { get; set; }
-        public string CategoryName { get; set; }
-        public int? ProductId { get; set; }
-        public string ProductName { get; set; }
-        public int ItemQuantity { get; set; }
-        public int TotalCost { get; set; }
+        public int TotalOrderSale { get; set; }
         public int OrderStatus { get; set; }
 
         //One relationship
