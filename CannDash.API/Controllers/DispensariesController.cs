@@ -221,6 +221,12 @@ namespace CannDash.API.Controllers
                     o.DispensaryOrderNo,
                     o.DispensaryId,
                     o.DriverId,
+                    DriverInfo = new
+                    {
+                        o.DriverId,
+                        o.Driver.FirstName,
+                        o.Driver.LastName
+                    },
                     o.CustomerId,
                     o.CustomerAddressId,
                     CustomerInfo = new
@@ -230,7 +236,7 @@ namespace CannDash.API.Controllers
                         o.Customer.Email,
                         o.Customer.Phone
                     },
-                    OrderItems = o.ProductOrders.Select(p => new
+                    ProductOrders = o.ProductOrders.Select(p => new
                     {
                         p.ProductOrderId,
                         p.MenuCategoryId,

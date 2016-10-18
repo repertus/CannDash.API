@@ -12,6 +12,7 @@ namespace CannDash.API.Models
         public int? DriverId { get; set; }
         public int? CustomerId { get; set; }
         public int? CustomerAddressId { get; set; }
+  
         public string DispensaryOrderNo { get; set; }
         public DateTime? OrderDate { get; set; }
 

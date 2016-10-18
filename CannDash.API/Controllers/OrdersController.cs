@@ -58,6 +58,12 @@ namespace CannDash.API.Controllers
                     order.DispensaryId,
                     order.DispensaryOrderNo,
                     order.DriverId,
+                    DriverInfo = new
+                    {
+                        order.DriverId,
+                        order.Driver.FirstName,
+                        order.Driver.LastName
+                    },
                     order.CustomerId,
                     order.CustomerAddressId,
                     CustomerInfo = new
@@ -67,7 +73,7 @@ namespace CannDash.API.Controllers
                         order.Customer.Email,
                         order.Customer.Phone
                     },
-                    OrderItems = order.ProductOrders.Select(p => new
+                    ProductOrders = order.ProductOrders.Select(p => new
                     {
                         p.ProductOrderId,
                         p.MenuCategoryId,
@@ -137,17 +143,18 @@ namespace CannDash.API.Controllers
                 return BadRequest(ModelState);
             }
 
-            var dispensaryOrders = db.Orders.Where(o => o.DispensaryId == order.DispensaryId).Select(o => o.DispensaryOrderNo).ToArray();
-            var dispensaryName = db.Dispensaries.Where(d => d.DispensaryId == order.DispensaryId).Select(d => d.CompanyName).ToArray();
+            var orderNumbers = db.Orders.Where(o => o.DispensaryId == order.DispensaryId).Select(o => o.DispensaryOrderNo).ToArray();
+            var dispensaries = db.Dispensaries.Where(d => d.DispensaryId == order.DispensaryId).Select(d => d.CompanyName).ToArray();
             int previousOrderNo = 0;
 
-            if (dispensaryOrders.Length != 0)
+            if (orderNumbers.Any(item => item != null))
             {
-                previousOrderNo = Convert.ToInt32((dispensaryOrders[dispensaryOrders.Count() - 1]).Remove(0, 4));
-                order.DispensaryOrderNo = dispensaryName[0].Substring(0, 3).ToUpper() + '-' + Convert.ToString(previousOrderNo + 1);
-            } else if (dispensaryOrders.Length == 0)
+                previousOrderNo = Convert.ToInt32(orderNumbers.Last().Remove(0,4));
+                order.DispensaryOrderNo = orderNumbers.First().Substring(0, 3).ToUpper() + '-' + Convert.ToString(previousOrderNo + 1);
+            }
+            else
             {
-                order.DispensaryOrderNo = dispensaryName[0].Substring(0, 3).ToUpper() + '-' + Convert.ToString(previousOrderNo + 1);
+                order.DispensaryOrderNo = dispensaries.First().Substring(0, 3).ToUpper() + '-' + Convert.ToString(previousOrderNo + 1);
             }
   
             order.OrderDate = DateTime.Now;
