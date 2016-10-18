@@ -25,6 +25,7 @@ namespace CannDash.API.Models
         public string State { get; set; }
         public int ZipCode { get; set; }
         public int TotalOrderSale { get; set; }
+        public int itemQuantity { get; set; }
         public int OrderStatus { get; set; }
 
         //One relationship

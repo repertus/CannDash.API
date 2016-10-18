@@ -17,7 +17,7 @@ namespace CannDash.API.Models
         public int? OrderQty { get; set; }
         public int? UnitPrice { get; set; }
         public int? Discount { get; set; }
-        public int? ItemSale { get; set; }
+        public int? TotalSale { get; set; }
 
         //One relationship
         public virtual Order Order { get; set; }

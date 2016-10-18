@@ -77,7 +77,7 @@ namespace CannDash.API.Controllers
                         p.OrderQty,
                         p.UnitPrice,
                         p.Discount,
-                        p.ItemSale
+                        p.TotalSale
                     }),
                     order.OrderDate,
                     order.DeliveryNotes,
@@ -87,6 +87,7 @@ namespace CannDash.API.Controllers
                     order.City,
                     order.State,
                     order.ZipCode,
+                    order.itemQuantity,
                     order.TotalOrderSale,
                     order.OrderStatus
                 });
