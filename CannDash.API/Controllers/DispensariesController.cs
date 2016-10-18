@@ -130,7 +130,6 @@ namespace CannDash.API.Controllers
                     d.LastName,
                     d.LicensePlate,
                     d.Phone,
-                    d.UnitsInRoute,
                     d.VehicleColor,
                     d.VehicleInsurance,
                     d.VehicleMake,
@@ -156,11 +155,9 @@ namespace CannDash.API.Controllers
                         o.DeliveryNotes,
                         CustomerName = o.Customer.FirstName + " " + o.Customer.LastName,
                         DispensaryName = o.Dispensary.CompanyName,
-                        o.ItemQuantity,
                         o.PickUp,
                         o.State,
                         o.Street,
-                        o.TotalCost,
                         o.UnitNo,
                         o.ZipCode
                     }),
@@ -221,15 +218,11 @@ namespace CannDash.API.Controllers
                 Order = dispensary.Orders.Select(o => new
                 {
                     o.OrderId,
-                    o.DispensaryId,
                     o.DispensaryOrderNo,
+                    o.DispensaryId,
                     o.DriverId,
-                    DriverInfo = new
-                    {
-                        o.Driver.FirstName,
-                        o.Driver.LastName
-                    },
                     o.CustomerId,
+                    o.CustomerAddressId,
                     CustomerInfo = new
                     {
                         o.Customer.FirstName,
@@ -237,7 +230,18 @@ namespace CannDash.API.Controllers
                         o.Customer.Email,
                         o.Customer.Phone
                     },
-                    o.CustomerAddressId,
+                    OrderItems = o.ProductOrders.Select(p => new
+                    {
+                        p.ProductOrderId,
+                        p.MenuCategoryId,
+                        p.CategoryName,
+                        p.ProductId,
+                        p.ProductName,
+                        p.OrderQty,
+                        p.UnitPrice,
+                        p.Discount,
+                        p.TotalSale
+                    }),
                     o.OrderDate,
                     o.DeliveryNotes,
                     o.PickUp,
@@ -246,12 +250,8 @@ namespace CannDash.API.Controllers
                     o.City,
                     o.State,
                     o.ZipCode,
-                    o.MenuCategoryId,
-                    o.CategoryName,
-                    o.ProductId,
-                    o.ProductName,
-                    o.ItemQuantity,
-                    o.TotalCost,
+                    o.itemQuantity,
+                    o.TotalOrderSale,
                     o.OrderStatus
                 })               
             });

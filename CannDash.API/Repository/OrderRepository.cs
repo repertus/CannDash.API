@@ -41,7 +41,7 @@ namespace CannDash.API.Repository
 
             return ((from sales in dispensary.Orders
                      where sales.DispensaryId == dispensaryId && sales.OrderStatus == 3 && (sales.OrderDate >= DateTime.Today && sales.OrderDate < DateTime.Today.AddDays(1))
-                     select sales.TotalCost).Sum());
+                     select sales.TotalOrderSale).Sum());
         }
 
         public int GetCurrentMonthSalesForDispensary(int dispensaryId)
@@ -50,7 +50,7 @@ namespace CannDash.API.Repository
 
             return ((from sales in dispensary.Orders
                      where sales.DispensaryId == dispensaryId && sales.OrderStatus == 3 && (sales.OrderDate >= _dateRepository.startDate() && sales.OrderDate <= _dateRepository.endDate())
-                     select sales.TotalCost).Sum());
+                     select sales.TotalOrderSale).Sum());
         }
     }
 }

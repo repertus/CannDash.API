@@ -24,8 +24,6 @@ namespace CannDash.API.Models
         public string VehicleInsurance { get; set; }
         // Get geo-location -> convert to latitude and longitude
 
-        public int? UnitsInRoute { get; set; }
-
         //One relationship
         public virtual Dispensary Dispensary { get; set; }
 

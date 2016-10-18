@@ -37,12 +37,7 @@ namespace CannDash.API.Controllers
                 o.City,
                 o.State,
                 o.ZipCode,
-                o.MenuCategoryId,
-                o.CategoryName,
-                o.ProductId,
-                o.ProductName,
-                o.ItemQuantity,
-                o.TotalCost,
+                o.TotalOrderSale,
                 o.OrderStatus
             });
         }
@@ -61,6 +56,7 @@ namespace CannDash.API.Controllers
                 {
                     order.OrderId,
                     order.DispensaryId,
+                    order.DispensaryOrderNo,
                     order.DriverId,
                     order.CustomerId,
                     order.CustomerAddressId,
@@ -71,14 +67,17 @@ namespace CannDash.API.Controllers
                         order.Customer.Email,
                         order.Customer.Phone
                     },
-                    ProductOrder = order.ProductOrders.Select(p => new
+                    OrderItems = order.ProductOrders.Select(p => new
                     {
-                        p.Discount,
-                        p.OrderId,
-                        p.ProductId,
                         p.ProductOrderId,
-                        p.TotalSale,
-                        p.UnitPrice
+                        p.MenuCategoryId,
+                        p.CategoryName,
+                        p.ProductId,
+                        p.ProductName,
+                        p.OrderQty,
+                        p.UnitPrice,
+                        p.Discount,
+                        p.TotalSale
                     }),
                     order.OrderDate,
                     order.DeliveryNotes,
@@ -88,12 +87,8 @@ namespace CannDash.API.Controllers
                     order.City,
                     order.State,
                     order.ZipCode,
-                    order.MenuCategoryId,
-                    order.CategoryName,
-                    order.ProductId,
-                    order.ProductName,
-                    order.ItemQuantity,
-                    order.TotalCost,
+                    order.itemQuantity,
+                    order.TotalOrderSale,
                     order.OrderStatus
                 });
         }
@@ -142,6 +137,19 @@ namespace CannDash.API.Controllers
                 return BadRequest(ModelState);
             }
 
+            var dispensaryOrders = db.Orders.Where(o => o.DispensaryId == order.DispensaryId).Select(o => o.DispensaryOrderNo).ToArray();
+            var dispensaryName = db.Dispensaries.Where(d => d.DispensaryId == order.DispensaryId).Select(d => d.CompanyName).ToArray();
+            int previousOrderNo = 0;
+
+            if (dispensaryOrders.Length != 0)
+            {
+                previousOrderNo = Convert.ToInt32((dispensaryOrders[dispensaryOrders.Count() - 1]).Remove(0, 4));
+                order.DispensaryOrderNo = dispensaryName[0].Substring(0, 3).ToUpper() + '-' + Convert.ToString(previousOrderNo + 1);
+            } else if (dispensaryOrders.Length == 0)
+            {
+                order.DispensaryOrderNo = dispensaryName[0].Substring(0, 3).ToUpper() + '-' + Convert.ToString(previousOrderNo + 1);
+            }
+  
             order.OrderDate = DateTime.Now;
             order.OrderStatus = 1;
             db.Orders.Add(order);
