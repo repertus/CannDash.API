@@ -15,7 +15,8 @@ namespace CannDash.API.Models
         public string ProductName { get; set; }
 
         public int? OrderQty { get; set; }
-        public int? UnitPrice { get; set; }
+        public int? Price { get; set; }
+        public string Units { get; set; }
         public int? Discount { get; set; }
         public int? TotalSale { get; set; }
 

@@ -27,7 +27,7 @@ namespace CannDash.API.Controllers
                 p.OrderId,
                 p.ProductId,
                 p.OrderQty,
-                p.UnitPrice,
+                p.Price,
                 p.Discount,
                 p.TotalSale
             });
@@ -49,7 +49,7 @@ namespace CannDash.API.Controllers
                 productOrder.OrderId,
                 productOrder.ProductId,
                 productOrder.OrderQty,
-                productOrder.UnitPrice,
+                productOrder.Price,
                 productOrder.Discount,
                 productOrder.TotalSale
             });
