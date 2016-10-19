@@ -81,7 +81,8 @@ namespace CannDash.API.Controllers
                         p.ProductId,
                         p.ProductName,
                         p.OrderQty,
-                        p.UnitPrice,
+                        p.Price,
+                        p.Units,
                         p.Discount,
                         p.TotalSale
                     }),

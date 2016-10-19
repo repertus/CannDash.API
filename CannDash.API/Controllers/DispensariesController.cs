@@ -215,7 +215,7 @@ namespace CannDash.API.Controllers
 
             return Ok(new
             {
-                Order = dispensary.Orders.Select(o => new
+                Order = dispensary.Orders.OrderByDescending(o => o.OrderDate).Select(o => new
                 {
                     o.OrderId,
                     o.DispensaryOrderNo,
@@ -244,7 +244,8 @@ namespace CannDash.API.Controllers
                         p.ProductId,
                         p.ProductName,
                         p.OrderQty,
-                        p.UnitPrice,
+                        p.Price,
+                        p.Units,
                         p.Discount,
                         p.TotalSale
                     }),
