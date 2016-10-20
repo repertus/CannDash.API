@@ -52,13 +52,52 @@ namespace CannDash.API.Controllers
                 return NotFound();
             }
 
-            order.Customer = null;
-            order.CustomerAddress = null;
-            order.Driver = null;
-            order.Dispensary = null;
-            order.ProductOrders = null;
-
-            return Ok(order);
+            return Ok(new
+                {
+                    order.OrderId,
+                    order.DispensaryId,
+                    order.DispensaryOrderNo,
+                    order.DriverId,
+                    DriverInfo = new
+                    {
+                             order.DriverId,
+                             order.Driver.FirstName,
+                             order.Driver.LastName
+                     },
+                     order.CustomerId,
+                     order.CustomerAddressId,
+                     CustomerInfo = new
+                     {
+                             order.Customer.FirstName,
+                             order.Customer.LastName,
+                             order.Customer.Email,
+                             order.Customer.Phone
+                     },
+                     ProductOrders = order.ProductOrders.Select(p => new
+                     {
+                             p.ProductOrderId,
+                             p.MenuCategoryId,
+                             p.CategoryName,
+                             p.ProductId,
+                             p.ProductName,
+                             p.OrderQty,
+                             p.Price,
+                             p.Units,
+                             p.Discount,
+                             p.TotalSale
+                    }),
+                    order.OrderDate,
+                    order.DeliveryNotes,
+                    order.PickUp,
+                    order.Street,
+                    order.UnitNo,
+                    order.City,
+                    order.State,
+                    order.ZipCode,
+                    order.itemQuantity,
+                    order.TotalOrderSale,
+                    order.OrderStatus
+            });
         }
 
         // PUT: api/Orders/5
@@ -123,6 +162,21 @@ namespace CannDash.API.Controllers
             order.OrderStatus = 1;
             db.Orders.Add(order);
             db.SaveChanges();
+
+            //Customer Twilio SMS notification
+            var customer = db.Customers.FirstOrDefault(c => c.CustomerId == order.CustomerId);
+            var messageToCustomer = customer.FirstName + "," + "\n" + "Your order is on its way.";
+
+            HelperFunctions.TwilioSMS.SendSms(customer.Phone, messageToCustomer);
+
+            //Driver Twilio SMS notification
+            var driver = db.Drivers.FirstOrDefault(d => d.DriverId == order.DriverId);
+            var messageToDriver = "New Delivery:" + "\n" +
+                                    "Customer: " + customer.FirstName + " " + customer.LastName + "\n" +
+                                    "Phone:" + customer.Phone + "\n" +
+                                    "Delivery Address:" + customer.Street + ", " + customer.State + " " + customer.ZipCode;
+
+            HelperFunctions.TwilioSMS.SendSms(driver.Phone, messageToDriver);
 
             return CreatedAtRoute("DefaultApi", new { id = order.OrderId }, order);
         }
