@@ -21,25 +21,22 @@ namespace CannDash.API.Controllers
         //Todo: authorize role for only admin
         public dynamic GetOrders()
         {
-            return db.Orders.OrderByDescending(o => o.OrderDate).Select(o => new
-            {
-                o.OrderId,
-                o.DispensaryId,
-                o.DispensaryOrderNo,
-                o.DriverId,
-                o.CustomerId,
-                o.CustomerAddressId,
-                o.OrderDate,
-                o.DeliveryNotes,
-                o.PickUp,
-                o.Street,
-                o.UnitNo,
-                o.City,
-                o.State,
-                o.ZipCode,
-                o.TotalOrderSale,
-                o.OrderStatus
-            });
+            return Ok(
+                new
+                   {
+                       order,
+                       Driver = new
+                       {
+                           order.Driver.FirstName,
+                           order.Driver.LastName
+                       },
+                       Customer = new
+                       {
+                           order.Customer.FirstName,
+                           order.Customer.LastName,
+                           order.Customer.Phone
+                       }
+                   })
         }
 
         // GET: api/Orders/5
