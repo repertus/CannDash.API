@@ -64,16 +64,7 @@ namespace CannDash.API.Controllers
 
                     },
                     MainChart = new object[] {
-                        new {
-                            Key = "Daily Orders",
-                            Values = new
-                            {
-                                TW = graphDataRepository.GetChartDataForThisWeekOrdersForDispensary(id),
-                                LW = graphDataRepository.GetChartDataForLastWeekOrdersForDispensary(id),
-                                W2 = graphDataRepository.GetChartDataForLastTwoWeeksOrdersForDispensary(id)
-                            }
-                        },
-                        new {
+                       new {
                             Key = "Daily Sales",
                             Values = new
                             {
@@ -81,6 +72,15 @@ namespace CannDash.API.Controllers
                                 LW = graphDataRepository.GetChartDataForLastWeekSalesForDispensary(id),
                                 W2 = graphDataRepository.GetChartDataForLastTwoWeeksSalesForDispensary(id)
 
+                            }
+                        },
+                        new {
+                            Key = "Daily Orders",
+                            Values = new
+                            {
+                                TW = graphDataRepository.GetChartDataForThisWeekOrdersForDispensary(id),
+                                LW = graphDataRepository.GetChartDataForLastWeekOrdersForDispensary(id),
+                                W2 = graphDataRepository.GetChartDataForLastTwoWeeksOrdersForDispensary(id)
                             }
                         }
                 }

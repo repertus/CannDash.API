@@ -52,52 +52,13 @@ namespace CannDash.API.Controllers
                 return NotFound();
             }
 
-            return Ok(new
-                {
-                    order.OrderId,
-                    order.DispensaryId,
-                    order.DispensaryOrderNo,
-                    order.DriverId,
-                    DriverInfo = new
-                    {
-                        order.DriverId,
-                        order.Driver.FirstName,
-                        order.Driver.LastName
-                    },
-                    order.CustomerId,
-                    order.CustomerAddressId,
-                    CustomerInfo = new
-                    {
-                        order.Customer.FirstName,
-                        order.Customer.LastName,
-                        order.Customer.Email,
-                        order.Customer.Phone
-                    },
-                    ProductOrders = order.ProductOrders.Select(p => new
-                    {
-                        p.ProductOrderId,
-                        p.MenuCategoryId,
-                        p.CategoryName,
-                        p.ProductId,
-                        p.ProductName,
-                        p.OrderQty,
-                        p.Price,
-                        p.Units,
-                        p.Discount,
-                        p.TotalSale
-                    }),
-                    order.OrderDate,
-                    order.DeliveryNotes,
-                    order.PickUp,
-                    order.Street,
-                    order.UnitNo,
-                    order.City,
-                    order.State,
-                    order.ZipCode,
-                    order.itemQuantity,
-                    order.TotalOrderSale,
-                    order.OrderStatus
-                });
+            order.Customer = null;
+            order.CustomerAddress = null;
+            order.Driver = null;
+            order.Dispensary = null;
+            order.ProductOrders = null;
+
+            return Ok(order);
         }
 
         // PUT: api/Orders/5
