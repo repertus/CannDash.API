@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -12,7 +13,7 @@ namespace CannDash.API.Models
         public int? DriverId { get; set; }
         public int? CustomerId { get; set; }
         public int? CustomerAddressId { get; set; }
-  
+
         public string DispensaryOrderNo { get; set; }
         public DateTime? OrderDate { get; set; }
 
@@ -30,9 +31,13 @@ namespace CannDash.API.Models
         public int OrderStatus { get; set; }
 
         //One relationship
+        [JsonIgnore]
         public virtual Customer Customer { get; set; }
+        [JsonIgnore]
         public virtual CustomerAddress CustomerAddress { get; set; }
+        [JsonIgnore]
         public virtual Dispensary Dispensary { get; set; }
+        [JsonIgnore]
         public virtual Driver Driver { get; set; }
 
         //Many relationship
