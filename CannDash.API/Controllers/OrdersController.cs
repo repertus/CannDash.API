@@ -18,9 +18,28 @@ namespace CannDash.API.Controllers
         private CannDashDataContext db = new CannDashDataContext();
 
         // GET: api/Orders
-        public IQueryable<Order> GetOrders()
+        //Todo: authorize role for only admin
+        public dynamic GetOrders()
         {
-            return db.Orders;
+            return db.Orders.OrderByDescending(o => o.OrderDate).Select(o => new
+            {
+                o.OrderId,
+                o.DispensaryId,
+                o.DispensaryOrderNo,
+                o.DriverId,
+                o.CustomerId,
+                o.CustomerAddressId,
+                o.OrderDate,
+                o.DeliveryNotes,
+                o.PickUp,
+                o.Street,
+                o.UnitNo,
+                o.City,
+                o.State,
+                o.ZipCode,
+                o.TotalOrderSale,
+                o.OrderStatus
+            });
         }
 
         // GET: api/Orders/5
@@ -33,7 +52,52 @@ namespace CannDash.API.Controllers
                 return NotFound();
             }
 
-            return Ok(order);
+            return Ok(new
+                {
+                    order.OrderId,
+                    order.DispensaryId,
+                    order.DispensaryOrderNo,
+                    order.DriverId,
+                    DriverInfo = new
+                    {
+                             order.DriverId,
+                             order.Driver.FirstName,
+                             order.Driver.LastName
+                     },
+                     order.CustomerId,
+                     order.CustomerAddressId,
+                     CustomerInfo = new
+                     {
+                             order.Customer.FirstName,
+                             order.Customer.LastName,
+                             order.Customer.Email,
+                             order.Customer.Phone
+                     },
+                     ProductOrders = order.ProductOrders.Select(p => new
+                     {
+                             p.ProductOrderId,
+                             p.MenuCategoryId,
+                             p.CategoryName,
+                             p.ProductId,
+                             p.ProductName,
+                             p.OrderQty,
+                             p.Price,
+                             p.Units,
+                             p.Discount,
+                             p.TotalSale
+                    }),
+                    order.OrderDate,
+                    order.DeliveryNotes,
+                    order.PickUp,
+                    order.Street,
+                    order.UnitNo,
+                    order.City,
+                    order.State,
+                    order.ZipCode,
+                    order.itemQuantity,
+                    order.TotalOrderSale,
+                    order.OrderStatus
+            });
         }
 
         // PUT: api/Orders/5
@@ -80,26 +144,41 @@ namespace CannDash.API.Controllers
                 return BadRequest(ModelState);
             }
 
+            var orderNumbers = db.Orders.Where(o => o.DispensaryId == order.DispensaryId).Select(o => o.DispensaryOrderNo).ToArray();
+            var dispensaries = db.Dispensaries.Where(d => d.DispensaryId == order.DispensaryId).Select(d => d.CompanyName).ToArray();
+            int previousOrderNo = 0;
+
+            if (orderNumbers.Any(item => item != null))
+            {
+                previousOrderNo = Convert.ToInt32(orderNumbers.Last().Remove(0,4));
+                order.DispensaryOrderNo = orderNumbers.First().Substring(0, 3).ToUpper() + '-' + Convert.ToString(previousOrderNo + 1);
+            }
+            else
+            {
+                order.DispensaryOrderNo = dispensaries.First().Substring(0, 3).ToUpper() + '-' + Convert.ToString(previousOrderNo + 1);
+            }
+  
+            order.OrderDate = DateTime.Now;
+            order.OrderStatus = 1;
             db.Orders.Add(order);
             db.SaveChanges();
 
+            //Customer Twilio SMS notification
+            var customer = db.Customers.FirstOrDefault(c => c.CustomerId == order.CustomerId);
+            var messageToCustomer = customer.FirstName + "," + "\n" + "Your order is on its way.";
+
+            HelperFunctions.TwilioSMS.SendSms(customer.Phone, messageToCustomer);
+
+            //Driver Twilio SMS notification
+            var driver = db.Drivers.FirstOrDefault(d => d.DriverId == order.DriverId);
+            var messageToDriver = "New Delivery:" + "\n" +
+                                    "Customer: " + customer.FirstName + " " + customer.LastName + "\n" +
+                                    "Phone:" + customer.Phone + "\n" +
+                                    "Delivery Address:" + customer.Street + ", " + customer.State + " " + customer.ZipCode;
+
+            HelperFunctions.TwilioSMS.SendSms(driver.Phone, messageToDriver);
+
             return CreatedAtRoute("DefaultApi", new { id = order.OrderId }, order);
-        }
-
-        // DELETE: api/Orders/5
-        [ResponseType(typeof(Order))]
-        public IHttpActionResult DeleteOrder(int id)
-        {
-            Order order = db.Orders.Find(id);
-            if (order == null)
-            {
-                return NotFound();
-            }
-
-            db.Orders.Remove(order);
-            db.SaveChanges();
-
-            return Ok(order);
         }
 
         protected override void Dispose(bool disposing)

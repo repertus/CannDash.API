@@ -83,11 +83,19 @@
       <HintPath>..\packages\Microsoft.ApplicationInsights.2.1.0\lib\net45\Microsoft.ApplicationInsights.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.Azure.AppService.ApiApps.Service, Version=0.9.16.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.AppService.ApiApps.Service.0.9.16\lib\net45\Microsoft.Azure.AppService.ApiApps.Service.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="MockMailbox, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MockMailbox.0.1\lib\MockMailbox.dll</HintPath>
       <Private>True</Private>
@@ -98,6 +106,18 @@
     </Reference>
     <Reference Include="RandomNameGeneratorLibrary, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\RandomNameGeneratorLibrary.1.2.1\lib\RandomNameGeneratorLibrary.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RestSharp, Version=105.2.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.105.2.2\lib\net452\RestSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Swashbuckle.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cd1bb07a5ac7c7bc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Swashbuckle.Core.5.0.0\lib\net40\Swashbuckle.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.4.0.0\lib\net45\System.IdentityModel.Tokens.Jwt.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Net.Http" />
@@ -125,6 +145,14 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Twilio.Api, Version=3.4.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Twilio.4.7.2\lib\3.5\Twilio.Api.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebActivatorEx.2.0.6\lib\net40\WebActivatorEx.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">
@@ -147,8 +175,10 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
+    <Compile Include="Controllers\DashBoardController.cs" />
     <Compile Include="Controllers\DispensariesController.cs" />
     <Compile Include="Controllers\DriversController.cs" />
     <Compile Include="Controllers\InventoriesController.cs" />
@@ -159,14 +189,52 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="HelperFunctions\TwilioSMS.cs" />
     <Compile Include="Infrastructure\CannDashDataContext.cs" />
     <Compile Include="Migrations\201610032128419_InitialCreate.cs" />
     <Compile Include="Migrations\201610032128419_InitialCreate.Designer.cs">
       <DependentUpon>201610032128419_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201610061627361_AddedDateDeliveredToOrder.cs" />
+    <Compile Include="Migrations\201610061627361_AddedDateDeliveredToOrder.Designer.cs">
+      <DependentUpon>201610061627361_AddedDateDeliveredToOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610062154588_ModifiedSchemas.cs" />
+    <Compile Include="Migrations\201610062154588_ModifiedSchemas.Designer.cs">
+      <DependentUpon>201610062154588_ModifiedSchemas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610112331153_AddForeignKeyToOrdersForCustomers.cs" />
+    <Compile Include="Migrations\201610112331153_AddForeignKeyToOrdersForCustomers.Designer.cs">
+      <DependentUpon>201610112331153_AddForeignKeyToOrdersForCustomers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610120004106_ChangeDataTypeOfOrderDelivered.cs" />
+    <Compile Include="Migrations\201610120004106_ChangeDataTypeOfOrderDelivered.Designer.cs">
+      <DependentUpon>201610120004106_ChangeDataTypeOfOrderDelivered.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610162223244_AddedAdditionalChangestoSchemas.cs" />
+    <Compile Include="Migrations\201610162223244_AddedAdditionalChangestoSchemas.Designer.cs">
+      <DependentUpon>201610162223244_AddedAdditionalChangestoSchemas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610171704586_UpdatedProductOrderFields.cs" />
+    <Compile Include="Migrations\201610171704586_UpdatedProductOrderFields.Designer.cs">
+      <DependentUpon>201610171704586_UpdatedProductOrderFields.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610171716085_ModifiedDriverSchemaRemovedUnitInRoute.cs" />
+    <Compile Include="Migrations\201610171716085_ModifiedDriverSchemaRemovedUnitInRoute.Designer.cs">
+      <DependentUpon>201610171716085_ModifiedDriverSchemaRemovedUnitInRoute.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610172020506_ProductOrderSchemaChange.cs" />
+    <Compile Include="Migrations\201610172020506_ProductOrderSchemaChange.Designer.cs">
+      <DependentUpon>201610172020506_ProductOrderSchemaChange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610182034131_ChangesToOrderAndProductOrderSchemas.cs" />
+    <Compile Include="Migrations\201610182034131_ChangesToOrderAndProductOrderSchemas.Designer.cs">
+      <DependentUpon>201610182034131_ChangesToOrderAndProductOrderSchemas.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\CustomerAddress.cs" />
     <Compile Include="Models\Dispensary.cs" />
     <Compile Include="Models\Driver.cs" />
     <Compile Include="Models\Inventory.cs" />
@@ -177,12 +245,17 @@
     <Compile Include="Models\ProductOrder.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\CustomerRepository.cs" />
+    <Compile Include="Repository\DateRepository.cs" />
+    <Compile Include="Repository\DriverRepository.cs" />
+    <Compile Include="Repository\GraphDataRepository.cs" />
+    <Compile Include="Repository\OrderRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-    <Content Include="ApplicationInsights.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Content Include="Metadata\deploymentTemplates\apiappconfig.azureresource.json" />
+    <Content Include="apiapp.json" />
+    <None Include="Properties\PublishProfiles\CannDashDeveloperAPI - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -197,6 +270,36 @@
     <EmbeddedResource Include="Migrations\201610032128419_InitialCreate.resx">
       <DependentUpon>201610032128419_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610061627361_AddedDateDeliveredToOrder.resx">
+      <DependentUpon>201610061627361_AddedDateDeliveredToOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610062154588_ModifiedSchemas.resx">
+      <DependentUpon>201610062154588_ModifiedSchemas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610112331153_AddForeignKeyToOrdersForCustomers.resx">
+      <DependentUpon>201610112331153_AddForeignKeyToOrdersForCustomers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610120004106_ChangeDataTypeOfOrderDelivered.resx">
+      <DependentUpon>201610120004106_ChangeDataTypeOfOrderDelivered.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610162223244_AddedAdditionalChangestoSchemas.resx">
+      <DependentUpon>201610162223244_AddedAdditionalChangestoSchemas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610171704586_UpdatedProductOrderFields.resx">
+      <DependentUpon>201610171704586_UpdatedProductOrderFields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610171716085_ModifiedDriverSchemaRemovedUnitInRoute.resx">
+      <DependentUpon>201610171716085_ModifiedDriverSchemaRemovedUnitInRoute.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610172020506_ProductOrderSchemaChange.resx">
+      <DependentUpon>201610172020506_ProductOrderSchemaChange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610182034131_ChangesToOrderAndProductOrderSchemas.resx">
+      <DependentUpon>201610182034131_ChangesToOrderAndProductOrderSchemas.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

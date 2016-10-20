@@ -18,9 +18,22 @@ namespace CannDash.API.Controllers
         private CannDashDataContext db = new CannDashDataContext();
 
         // GET: api/Inventories
-        public IQueryable<Inventory> GetInventories()
+        //Todo: authorize role for only admin
+        public dynamic GetInventories()
         {
-            return db.Inventories;
+            return db.Inventories.Select(i => new
+            {
+                i.InventoryId,
+                i.DispensaryId,
+                i.Mobile,
+                i.Inv_Gram,
+                i.Inv_TwoGrams,
+                i.Inv_Eigth,
+                i.Inv_Quarter,
+                i.Inv_HalfOnce,
+                i.Inv_Ounce,
+                i.Inv_Each
+            });
         }
 
         // GET: api/Inventories/5
@@ -33,7 +46,19 @@ namespace CannDash.API.Controllers
                 return NotFound();
             }
 
-            return Ok(inventory);
+            return Ok(new
+            {
+                inventory.InventoryId,
+                inventory.DispensaryId,
+                inventory.Mobile,
+                inventory.Inv_Gram,
+                inventory.Inv_TwoGrams,
+                inventory.Inv_Eigth,
+                inventory.Inv_Quarter,
+                inventory.Inv_HalfOnce,
+                inventory.Inv_Ounce,
+                inventory.Inv_Each
+            });
         }
 
         // PUT: api/Inventories/5
@@ -99,22 +124,6 @@ namespace CannDash.API.Controllers
             }
 
             return CreatedAtRoute("DefaultApi", new { id = inventory.InventoryId }, inventory);
-        }
-
-        // DELETE: api/Inventories/5
-        [ResponseType(typeof(Inventory))]
-        public IHttpActionResult DeleteInventory(int id)
-        {
-            Inventory inventory = db.Inventories.Find(id);
-            if (inventory == null)
-            {
-                return NotFound();
-            }
-
-            db.Inventories.Remove(inventory);
-            db.SaveChanges();
-
-            return Ok(inventory);
         }
 
         protected override void Dispose(bool disposing)

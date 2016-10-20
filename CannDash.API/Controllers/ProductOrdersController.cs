@@ -18,9 +18,19 @@ namespace CannDash.API.Controllers
         private CannDashDataContext db = new CannDashDataContext();
 
         // GET: api/ProductOrders
-        public IQueryable<ProductOrder> GetProductOrders()
+        //Todo: authorize role for only admin
+        public dynamic GetProductOrders()
         {
-            return db.ProductOrders;
+            return db.ProductOrders.Select(p => new
+            {
+                p.ProductOrderId,
+                p.OrderId,
+                p.ProductId,
+                p.OrderQty,
+                p.Price,
+                p.Discount,
+                p.TotalSale
+            });
         }
 
         // GET: api/ProductOrders/5
@@ -33,7 +43,16 @@ namespace CannDash.API.Controllers
                 return NotFound();
             }
 
-            return Ok(productOrder);
+            return Ok(new
+            {
+                productOrder.ProductOrderId,
+                productOrder.OrderId,
+                productOrder.ProductId,
+                productOrder.OrderQty,
+                productOrder.Price,
+                productOrder.Discount,
+                productOrder.TotalSale
+            });
         }
 
         // PUT: api/ProductOrders/5
@@ -84,22 +103,6 @@ namespace CannDash.API.Controllers
             db.SaveChanges();
 
             return CreatedAtRoute("DefaultApi", new { id = productOrder.ProductOrderId }, productOrder);
-        }
-
-        // DELETE: api/ProductOrders/5
-        [ResponseType(typeof(ProductOrder))]
-        public IHttpActionResult DeleteProductOrder(int id)
-        {
-            ProductOrder productOrder = db.ProductOrders.Find(id);
-            if (productOrder == null)
-            {
-                return NotFound();
-            }
-
-            db.ProductOrders.Remove(productOrder);
-            db.SaveChanges();
-
-            return Ok(productOrder);
         }
 
         protected override void Dispose(bool disposing)

@@ -18,9 +18,26 @@ namespace CannDash.API.Controllers
         private CannDashDataContext db = new CannDashDataContext();
 
         // GET: api/Drivers
-        public IQueryable<Driver> GetDrivers()
+        //Todo: authorize role for only admin
+        public dynamic GetDrivers()
         {
-            return db.Drivers;
+            return db.Drivers.Select(d => new
+            {
+                d.DriverId,
+                d.DispensaryId,
+                d.DriverCheckIn,
+                d.DriverPic,
+                d.DriversLicense,
+                d.Email,
+                d.FirstName,
+                d.LastName,
+                d.LicensePlate,
+                d.Phone,
+                d.VehicleColor,
+                d.VehicleInsurance,
+                d.VehicleMake,
+                d.VehicleModel
+            });
         }
 
         // GET: api/Drivers/5
@@ -33,7 +50,55 @@ namespace CannDash.API.Controllers
                 return NotFound();
             }
 
-            return Ok(driver);
+            return Ok(new
+            {
+                driver.DriverId,
+                driver.DriverPic,
+                driver.DriversLicense,
+                driver.Email,
+                driver.FirstName,
+                driver.LastName,
+                driver.LicensePlate,
+                driver.Phone,
+                driver.VehicleColor,
+                driver.VehicleInsurance,
+                driver.VehicleMake,
+                driver.VehicleModel,
+                Pickups = driver.PickUps.Select(dp => new
+                {
+                    Inventory = new
+                    {
+                        dp.InventoryId,
+                        dp.Inventory.Inv_Eigth,
+                        dp.Inventory.Inv_Gram,
+                        dp.Inventory.Inv_HalfOnce,
+                        dp.Inventory.Inv_Ounce,
+                        dp.Inventory.Inv_Quarter,
+                        dp.Inventory.Inv_TwoGrams,
+                        dp.Inventory.Mobile
+                    }
+                }),
+                Orders = driver.Orders.Select(o => new
+                {
+                    o.OrderId,
+                    o.City,
+                    o.DeliveryNotes,
+                    CustomerName = o.Customer.FirstName + " " + o.Customer.LastName,
+                    DispensaryName = o.Dispensary.CompanyName,
+                    o.PickUp,
+                    o.State,
+                    o.Street,
+                    o.UnitNo,
+                    o.ZipCode
+                }),
+                Dispensary = new
+                {
+                    driver.Dispensary.DispensaryId,
+                    driver.Dispensary.CompanyName,
+                    driver.Dispensary.Email,
+                    driver.Dispensary.Phone
+                }
+            });
         }
 
         // PUT: api/Drivers/5
@@ -87,22 +152,6 @@ namespace CannDash.API.Controllers
             db.SaveChanges();
 
             return CreatedAtRoute("DefaultApi", new { id = driver.DriverId }, driver);
-        }
-
-        // DELETE: api/Drivers/5
-        [ResponseType(typeof(Driver))]
-        public IHttpActionResult DeleteDriver(int id)
-        {
-            Driver driver = db.Drivers.Find(id);
-            if (driver == null)
-            {
-                return NotFound();
-            }
-
-            db.Drivers.Remove(driver);
-            db.SaveChanges();
-
-            return Ok(driver);
         }
 
         protected override void Dispose(bool disposing)

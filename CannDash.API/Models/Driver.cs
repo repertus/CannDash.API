@@ -10,6 +10,7 @@ namespace CannDash.API.Models
     {
         public int DriverId { get; set; }
         public int DispensaryId { get; set; }
+        public bool DriverCheckIn { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Phone { get; set; }
@@ -22,8 +23,6 @@ namespace CannDash.API.Models
         public string VehicleColor { get; set; }
         public string VehicleInsurance { get; set; }
         // Get geo-location -> convert to latitude and longitude
-
-        public int? UnitsInRoute { get; set; }
 
         //One relationship
         public virtual Dispensary Dispensary { get; set; }
