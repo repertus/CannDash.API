@@ -22,7 +22,7 @@ namespace CannDash.API.Controllers
         public dynamic GetDispensaries()
         {
             return db.Dispensaries.Select(d => new
-            { 
+            {
                 d.DispensaryId,
                 d.CompanyName,
                 d.WeedMapMenu,
@@ -64,7 +64,7 @@ namespace CannDash.API.Controllers
                 dispensary.Zone,
                 dispensary.StatePermit,
                 dispensary.PermitExpirationDate
-                
+
             });
         }
 
@@ -198,7 +198,7 @@ namespace CannDash.API.Controllers
                     i.Inv_HalfOnce,
                     i.Inv_Ounce,
                     i.Inv_Each
-                })       
+                })
             });
         }
 
@@ -260,7 +260,7 @@ namespace CannDash.API.Controllers
                     o.itemQuantity,
                     o.TotalOrderSale,
                     o.OrderStatus
-                })               
+                })
             });
         }
 
@@ -326,6 +326,28 @@ namespace CannDash.API.Controllers
         private bool DispensaryExists(int id)
         {
             return db.Dispensaries.Count(e => e.DispensaryId == id) > 0;
+        }
+
+        // GET: api/Dispensaries/5/Drivers
+        [ResponseType(typeof(Driver))]
+        [HttpGet, Route("api/dispensaries/{dispensaryId}/driverNames")]
+        public IHttpActionResult GetDispensaryDriverNames(int dispensaryId)
+        {
+            Dispensary dispensary = db.Dispensaries.Find(dispensaryId);
+            if (dispensary == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(new
+            {
+                Drivers = dispensary.Drivers.Where(d => d.DriverCheckIn).Select(d => new
+                {
+                    d.DriverId,
+                    d.FirstName,
+                    d.LastName
+                })
+            });
         }
     }
 }
