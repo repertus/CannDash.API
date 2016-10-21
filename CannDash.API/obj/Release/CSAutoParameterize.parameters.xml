@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="CannDashDatabase-Web.config Connection String" description="CannDashDatabase Connection String used in web.config by the application to access the database." defaultValue="CannDashDatabase_ConnectionString" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="\\\\psf\\Home\\GitHub\\20-CannDash\\CannDash\.API\\CannDash\.API\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='CannDashDatabase']/@connectionString" />
+  </parameter>
+</parameters>

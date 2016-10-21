@@ -53,21 +53,21 @@ namespace CannDash.API.Controllers
             }
 
             return Ok(
-                new
-                {
-                    order,
-                    Driver = new
-                    {
-                        order.Driver.FirstName,
-                        order.Driver.LastName
-                    },
-                    Customer = new
-                    {
-                        order.Customer.FirstName,
-                        order.Customer.LastName,
-                        order.Customer.Phone
-                    }
-                });        
+               new
+               {
+                   order,
+                   Driver = new
+                   {
+                       order.Driver.FirstName,
+                       order.Driver.LastName
+                   },
+                   Customer = new
+                   {
+                       order.Customer.FirstName,
+                       order.Customer.LastName,
+                       order.Customer.Phone
+                   }
+                });
         }
 
         // PUT: api/Orders/5

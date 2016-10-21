@@ -221,21 +221,21 @@ namespace CannDash.API.Controllers
                     o.DispensaryOrderNo,
                     o.DispensaryId,
                     o.DriverId,
-                    DriverInfo = new
+                    DriverInfo = (o.Driver != null) ? new
                     {
                         o.DriverId,
                         o.Driver.FirstName,
                         o.Driver.LastName
-                    },
+                    } : null,
                     o.CustomerId,
                     o.CustomerAddressId,
-                    CustomerInfo = new
+                    CustomerInfo = (o.Customer != null) ? new
                     {
                         o.Customer.FirstName,
                         o.Customer.LastName,
                         o.Customer.Email,
                         o.Customer.Phone
-                    },
+                    } : null,
                     ProductOrders = o.ProductOrders.Select(p => new
                     {
                         p.ProductOrderId,
