@@ -21,22 +21,25 @@ namespace CannDash.API.Controllers
         //Todo: authorize role for only admin
         public dynamic GetOrders()
         {
-            return Ok(
-                new
-                   {
-                       order,
-                       Driver = new
-                       {
-                           order.Driver.FirstName,
-                           order.Driver.LastName
-                       },
-                       Customer = new
-                       {
-                           order.Customer.FirstName,
-                           order.Customer.LastName,
-                           order.Customer.Phone
-                       }
-                   })
+            return db.Orders.OrderByDescending(o => o.OrderDate).Select(o => new
+            {
+                o.OrderId,
+                o.DispensaryId,
+                o.DispensaryOrderNo,
+                o.DriverId,
+                o.CustomerId,
+                o.CustomerAddressId,
+                o.OrderDate,
+                o.DeliveryNotes,
+                o.PickUp,
+                o.Street,
+                o.UnitNo,
+                o.City,
+                o.State,
+                o.ZipCode,
+                o.TotalOrderSale,
+                o.OrderStatus
+            });
         }
 
         // GET: api/Orders/5
@@ -49,52 +52,22 @@ namespace CannDash.API.Controllers
                 return NotFound();
             }
 
-            return Ok(new
+            return Ok(
+                new
                 {
-                    order.OrderId,
-                    order.DispensaryId,
-                    order.DispensaryOrderNo,
-                    order.DriverId,
-                    DriverInfo = new
+                    order,
+                    Driver = new
                     {
-                             order.DriverId,
-                             order.Driver.FirstName,
-                             order.Driver.LastName
-                     },
-                     order.CustomerId,
-                     order.CustomerAddressId,
-                     CustomerInfo = new
-                     {
-                             order.Customer.FirstName,
-                             order.Customer.LastName,
-                             order.Customer.Email,
-                             order.Customer.Phone
-                     },
-                     ProductOrders = order.ProductOrders.Select(p => new
-                     {
-                             p.ProductOrderId,
-                             p.MenuCategoryId,
-                             p.CategoryName,
-                             p.ProductId,
-                             p.ProductName,
-                             p.OrderQty,
-                             p.Price,
-                             p.Units,
-                             p.Discount,
-                             p.TotalSale
-                    }),
-                    order.OrderDate,
-                    order.DeliveryNotes,
-                    order.PickUp,
-                    order.Street,
-                    order.UnitNo,
-                    order.City,
-                    order.State,
-                    order.ZipCode,
-                    order.itemQuantity,
-                    order.TotalOrderSale,
-                    order.OrderStatus
-            });
+                        order.Driver.FirstName,
+                        order.Driver.LastName
+                    },
+                    Customer = new
+                    {
+                        order.Customer.FirstName,
+                        order.Customer.LastName,
+                        order.Customer.Phone
+                    }
+                });        
         }
 
         // PUT: api/Orders/5
