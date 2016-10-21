@@ -56,17 +56,17 @@ namespace CannDash.API.Controllers
                new
                {
                    order,
-                   Driver = new
+                   Driver = (order.Driver != null) ? new
                    {
                        order.Driver.FirstName,
                        order.Driver.LastName
-                   },
-                   Customer = new
+                   } : null,
+                   Customer = (order.Customer != null) ? new
                    {
                        order.Customer.FirstName,
                        order.Customer.LastName,
                        order.Customer.Phone
-                   }
+                   } : null
                 });
         }
 
