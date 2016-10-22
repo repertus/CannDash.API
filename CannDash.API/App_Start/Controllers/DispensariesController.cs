@@ -257,7 +257,7 @@ namespace CannDash.API.Controllers
                     o.City,
                     o.State,
                     o.ZipCode,
-                    o.itemQuantity,
+                    o.ItemQuantity,
                     o.TotalOrderSale,
                     o.OrderStatus
                 })

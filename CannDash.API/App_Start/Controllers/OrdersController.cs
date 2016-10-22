@@ -86,6 +86,27 @@ namespace CannDash.API.Controllers
 
             db.Entry(order).State = EntityState.Modified;
 
+            // delete the product orders in the existing order which no longer
+            // exist in the given order
+            var dbOrder = db.Orders.Find(id);
+            foreach (var productOrder in dbOrder.ProductOrders)
+                if (order.ProductOrders
+                    .All(p => p.ProductOrderId != productOrder.ProductOrderId))
+                    db.ProductOrders.Remove(productOrder);
+
+            // update or insert the product orders from the given order, in the existing order
+            foreach (var productOrder in order.ProductOrders)
+            {
+                var existing =
+                    dbOrder.ProductOrders.FirstOrDefault(
+                        p => p.ProductOrderId == productOrder.ProductOrderId);
+                System.Diagnostics.Trace.WriteLine("***productOrder " + productOrder.ProductOrderId + ": " + existing);
+                if (existing != null)
+                    db.Entry(existing).CurrentValues.SetValues(productOrder);
+                else
+                    dbOrder.ProductOrders.Add(productOrder);
+            }
+
             try
             {
                 db.SaveChanges();
