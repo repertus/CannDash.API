@@ -144,11 +144,11 @@ namespace CannDash.API.Controllers
             if (orderNumbers.Any(item => item != null))
             {
                 previousOrderNo = Convert.ToInt32(orderNumbers.Last().Remove(0,4));
-                order.DispensaryOrderNo = orderNumbers.First().Substring(0, 1).ToUpper() + '-' + Convert.ToString(previousOrderNo + 1);
+                order.DispensaryOrderNo = orderNumbers.First().Substring(0, 3).ToUpper() + '-' + Convert.ToString(previousOrderNo + 1);
             }
             else
             {
-                order.DispensaryOrderNo = dispensaries.First().Substring(0, 1).ToUpper() + '-' + Convert.ToString(previousOrderNo + 1);
+                order.DispensaryOrderNo = dispensaries.First().Substring(0, 3).ToUpper() + '-' + Convert.ToString(previousOrderNo + 1);
             }
   
             order.OrderDate = DateTime.Now;
