@@ -14,20 +14,26 @@ namespace CannDash.API.Models
         public int? CustomerId { get; set; }
         public int? CustomerAddressId { get; set; }
 
-        public string DispensaryOrderNo { get; set; }
+        // Date
         public DateTime? OrderDate { get; set; }
 
-        public string DeliveryNotes { get; set; }
-        public bool? PickUp { get; set; }
-
-        // Either default to customer main address or deliver to alternate customer address
+        // Either default to customer main address || alternate customer address
         public string Street { get; set; }
         public string UnitNo { get; set; }
         public string City { get; set; }
         public string State { get; set; }
         public int ZipCode { get; set; }
-        public int TotalOrderSale { get; set; }
+        public string DeliveryNotes { get; set; }
+
+        // Order number unique to dispensary
+        public string DispensaryOrderNo { get; set; }
+
+        // Product inventory tracking on driver
+        public bool? PickUp { get; set; }
+
+        // Transaction fields
         public int ItemQuantity { get; set; }
+        public int TotalOrderSale { get; set; }
         public int OrderStatus { get; set; }
 
         //One relationship
