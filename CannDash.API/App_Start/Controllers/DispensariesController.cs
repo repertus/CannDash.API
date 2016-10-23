@@ -79,31 +79,30 @@ namespace CannDash.API.Controllers
                 return NotFound();
             }
 
-            return Ok(new
-            {
-                Customers = dispensary.Customers.Select(c => new
-                {
-                    c.CustomerId,
-                    c.DispensaryId,
-                    c.FirstName,
-                    c.LastName,
-                    c.Street,
-                    c.UnitNo,
-                    c.City,
-                    c.State,
-                    c.ZipCode,
-                    c.Email,
-                    c.Phone,
-                    c.Gender,
-                    c.DateOfBirth,
-                    c.Age,
-                    c.MedicalReason,
-                    c.DriversLicense,
-                    c.MmicId,
-                    c.MmicExpiration,
-                    c.DoctorLetter
-                }),
-            });
+            var customers =
+                dispensary.Customers.Select(
+                    c => (dynamic)new
+                    {
+                        c.CustomerId,
+                        c.DispensaryId,
+                        c.FirstName,
+                        c.LastName,
+                        c.CustomerAddressId,
+                        c.Email,
+                        c.Phone,
+                        c.Gender,
+                        c.DateOfBirth,
+                        c.Age,
+                        c.MedicalReason,
+                        c.DriversLicense,
+                        c.MmicId,
+                        c.MmicExpiration,
+                        c.DoctorLetter
+                    });
+            //foreach (var customer in customers)
+            //    customer.address = db.CustomerAddresses.Find(customer.CustomerAddressId);
+
+            return Ok(customers);
         }
 
         // GET: api/Dispensaries/5/Drivers

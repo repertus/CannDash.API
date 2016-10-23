@@ -26,7 +26,7 @@ namespace CannDash.API.Models
         public string DeliveryNotes { get; set; }
 
         // Order number unique to dispensary
-        public string DispensaryOrderNo { get; set; }
+        public int DispensaryOrderNo { get; set; }
 
         // Product inventory tracking on driver
         public bool? PickUp { get; set; }

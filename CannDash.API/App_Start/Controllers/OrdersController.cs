@@ -42,7 +42,7 @@ namespace CannDash.API.Controllers
             });
         }
 
-        // GET: api/Orders/5
+        // GET: api/Orders/id
         [ResponseType(typeof(Order))]
         public IHttpActionResult GetOrder(int id)
         {
@@ -70,7 +70,7 @@ namespace CannDash.API.Controllers
                 });
         }
 
-        // PUT: api/Orders/5
+        // PUT: api/Orders/id
         [ResponseType(typeof(void))]
         public IHttpActionResult PutOrder(int id, Order order)
         {
@@ -137,24 +137,32 @@ namespace CannDash.API.Controllers
                 return BadRequest(ModelState);
             }
 
-            var orderNumbers = db.Orders.Where(o => o.DispensaryId == order.DispensaryId).Select(o => o.DispensaryOrderNo).ToArray();
-            var dispensaries = db.Dispensaries.Where(d => d.DispensaryId == order.DispensaryId).Select(d => d.CompanyName).ToArray();
-            int previousOrderNo = 0;
+            // Create a unique Dispensary Order number for each dispensary.
+            var previousOrderNo = 
+                   db.Orders.Where(o => o.DispensaryId == order.DispensaryId)
+                            .Select(o => o.DispensaryOrderNo)
+                            .DefaultIfEmpty(0).Max();
 
-            if (orderNumbers.Any(item => item != null))
-            {
-                previousOrderNo = Convert.ToInt32(orderNumbers.Last().Remove(0,4));
-                order.DispensaryOrderNo = orderNumbers.First().Substring(0, 3).ToUpper() + '-' + Convert.ToString(previousOrderNo + 1);
-            }
-            else
-            {
-                order.DispensaryOrderNo = dispensaries.First().Substring(0, 3).ToUpper() + '-' + Convert.ToString(previousOrderNo + 1);
-            }
-  
+            // Check previous order number and add 1
+            order.DispensaryOrderNo = previousOrderNo + 1;
+            
+            // Set order time to when order is placed.
             order.OrderDate = DateTime.Now;
+            
+            // Default order status is 1 = pending until confirmed by driver via text twillio.
             order.OrderStatus = 1;
+
+            // Add the order to the Orders table in database
             db.Orders.Add(order);
+
+            // Save changes to database.
             db.SaveChanges();
+
+
+            //////////////////////
+            // TWILIO SECTION  //
+            ////////////////////
+            
 
             //Customer Twilio SMS notification
             var customer = db.Customers.FirstOrDefault(c => c.CustomerId == order.CustomerId);
@@ -167,7 +175,7 @@ namespace CannDash.API.Controllers
             var messageToDriver = "New Delivery:" + "\n" +
                                     "Customer: " + customer.FirstName + " " + customer.LastName + "\n" +
                                     "Phone:" + customer.Phone + "\n" +
-                                    "Delivery Address:" + customer.Street + ", " + customer.State + " " + customer.ZipCode;
+                                    "Delivery Address:" + order.Street + ", " + order.State + " " + order.ZipCode;
 
             HelperFunctions.TwilioSMS.SendSms(driver.Phone, messageToDriver);
 

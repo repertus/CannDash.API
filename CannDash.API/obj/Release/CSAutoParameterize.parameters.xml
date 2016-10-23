@@ -3,4 +3,7 @@
   <parameter name="CannDashDatabase-Web.config Connection String" description="CannDashDatabase Connection String used in web.config by the application to access the database." defaultValue="CannDashDatabase_ConnectionString" tags="SqlConnectionString">
     <parameterEntry kind="XmlFile" scope="\\\\psf\\Home\\GitHub\\20-CannDash\\CannDash\.API\\CannDash\.API\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='CannDashDatabase']/@connectionString" />
   </parameter>
+  <parameter name="CannDashDatabase_DatabasePublish-Web.config Connection String" description="CannDashDatabase_DatabasePublish Connection String used in web.config by the application to access the database." defaultValue="CannDashDatabase_DatabasePublish.ConnetionString" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="\\\\psf\\Home\\GitHub\\20-CannDash\\CannDash\.API\\CannDash\.API\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='CannDashDatabase_DatabasePublish']/@connectionString" />
+  </parameter>
 </parameters>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Newtonsoft.Json;
 
 namespace CannDash.API.Models
 {
@@ -22,9 +23,10 @@ namespace CannDash.API.Models
         public string DeliveryNotes { get; set; }
 
         //One relationship
+        [JsonIgnore]
         public virtual Customer Customer { get; set; }
 
         //Many relationship
-        public virtual ICollection<Order> Orders { get; set; }
+        //public virtual ICollection<Order> Orders { get; set; }
     }
 }
