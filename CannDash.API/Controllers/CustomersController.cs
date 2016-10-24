@@ -23,7 +23,8 @@ namespace CannDash.API.Controllers
         {
             var customers =
                 db.Customers.Select(
-                    c => (dynamic)new {
+                    c => (dynamic)new
+                    {
                         c.CustomerId,
                         c.DispensaryId,
                         c.FirstName,
@@ -36,7 +37,7 @@ namespace CannDash.API.Controllers
                 customer.address = db.CustomerAddresses.Find(customer.CustomerAddressId);
 
             return customers;
-       }
+        }
 
         // GET: api/customers/5/
         [ResponseType(typeof(Customer))]
