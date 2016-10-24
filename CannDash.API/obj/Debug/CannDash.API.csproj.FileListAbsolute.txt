@@ -58,7 +58,6 @@
 \\psf\Home\GitHub\20-CannDash\CannDash.API\CannDash.API\bin\System.Net.Http.Formatting.xml
 \\psf\Home\GitHub\20-CannDash\CannDash.API\CannDash.API\bin\System.Web.Http.xml
 \\psf\Home\GitHub\20-CannDash\CannDash.API\CannDash.API\bin\System.Web.Http.WebHost.xml
-\\psf\Home\GitHub\20-CannDash\CannDash.API\CannDash.API\obj\Debug\CannDash.API.csprojResolveAssemblyReference.cache
 \\psf\Home\GitHub\20-CannDash\CannDash.API\CannDash.API\obj\Debug\CannDash.API.Migrations.InitialCreate.resources
 \\psf\Home\GitHub\20-CannDash\CannDash.API\CannDash.API\obj\Debug\CannDash.API.Migrations.AddedDateDeliveredToOrder.resources
 \\psf\Home\GitHub\20-CannDash\CannDash.API\CannDash.API\obj\Debug\CannDash.API.Migrations.ModifiedSchemas.resources

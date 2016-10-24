@@ -67,7 +67,7 @@ namespace CannDash.API.Controllers
                        order.Customer.LastName,
                        order.Customer.Phone
                    } : null
-                });
+               });
         }
 
         // PUT: api/Orders/id
@@ -138,17 +138,17 @@ namespace CannDash.API.Controllers
             }
 
             // Create a unique Dispensary Order number for each dispensary.
-            var previousOrderNo = 
+            var previousOrderNo =
                    db.Orders.Where(o => o.DispensaryId == order.DispensaryId)
                             .Select(o => o.DispensaryOrderNo)
                             .DefaultIfEmpty(0).Max();
 
             // Check previous order number and add 1
             order.DispensaryOrderNo = previousOrderNo + 1;
-            
+
             // Set order time to when order is placed.
             order.OrderDate = DateTime.Now;
-            
+
             // Default order status is 1 = pending until confirmed by driver via text twillio.
             order.OrderStatus = 1;
 
@@ -162,7 +162,7 @@ namespace CannDash.API.Controllers
             //////////////////////
             // TWILIO SECTION  //
             ////////////////////
-            
+
 
             //Customer Twilio SMS notification
             var customer = db.Customers.FirstOrDefault(c => c.CustomerId == order.CustomerId);

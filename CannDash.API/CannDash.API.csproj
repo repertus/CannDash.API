@@ -177,15 +177,15 @@
   <ItemGroup>
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="App_Start\Controllers\CustomersController.cs" />
-    <Compile Include="App_Start\Controllers\DashBoardController.cs" />
-    <Compile Include="App_Start\Controllers\DispensariesController.cs" />
-    <Compile Include="App_Start\Controllers\DriversController.cs" />
-    <Compile Include="App_Start\Controllers\InventoriesController.cs" />
-    <Compile Include="App_Start\Controllers\OrdersController.cs" />
-    <Compile Include="App_Start\Controllers\PickUpsController.cs" />
-    <Compile Include="App_Start\Controllers\ProductOrdersController.cs" />
-    <Compile Include="App_Start\Controllers\UsersController.cs" />
+    <Compile Include="Controllers\CustomersController.cs" />
+    <Compile Include="Controllers\DashBoardController.cs" />
+    <Compile Include="Controllers\DispensariesController.cs" />
+    <Compile Include="Controllers\DriversController.cs" />
+    <Compile Include="Controllers\InventoriesController.cs" />
+    <Compile Include="Controllers\OrdersController.cs" />
+    <Compile Include="Controllers\PickUpsController.cs" />
+    <Compile Include="Controllers\ProductOrdersController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
