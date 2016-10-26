@@ -86,7 +86,6 @@ namespace CannDash.API.Controllers
                         c.DispensaryId,
                         c.FirstName,
                         c.LastName,
-                        c.CustomerAddressId,
                         c.Email,
                         c.Phone,
                         c.Gender,
@@ -102,7 +101,8 @@ namespace CannDash.API.Controllers
                 customers.Select(
                     c => new {
                         Customer = c,
-                        Address = db.CustomerAddresses.Find(c.CustomerAddressId)
+                        Address = db.CustomerAddresses.FirstOrDefault(
+                            a => a.CustomerId == c.CustomerId && a.PrimaryAddress)
                     });
 
             return Ok(withAddress);

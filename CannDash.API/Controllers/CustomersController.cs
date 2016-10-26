@@ -29,7 +29,6 @@ namespace CannDash.API.Controllers
                         c.DispensaryId,
                         c.FirstName,
                         c.LastName,
-                        c.CustomerAddressId,
                         c.Email,
                         c.Phone
                     });
@@ -78,7 +77,31 @@ namespace CannDash.API.Controllers
                 return BadRequest();
             }
 
-            db.Entry(customer).State = EntityState.Modified;
+            var dbCustomer = db.Customers.Find(customerId);
+            if (customer.CustomerAddresses != null)
+            {
+                // delete the addresses in the existing customer which no longer
+                // exist in the given customer
+                foreach (var address in dbCustomer.CustomerAddresses.ToList())
+                    if (customer.CustomerAddresses
+                        .All(a => a.CustomerAddressId != address.CustomerAddressId))
+                        db.CustomerAddresses.Remove(address);
+
+                // update or insert the addresses from the given customer, 
+                // in the existing customer
+                foreach (var address in customer.CustomerAddresses)
+                {
+                    var existing =
+                        dbCustomer.CustomerAddresses.FirstOrDefault(
+                            a => a.CustomerAddressId == address.CustomerAddressId);
+                    if (existing != null)
+                        db.Entry(existing).CurrentValues.SetValues(address);
+                    else
+                        dbCustomer.CustomerAddresses.Add(address);
+                }
+            }
+
+            db.Entry(dbCustomer).CurrentValues.SetValues(customer);
 
             try
             {

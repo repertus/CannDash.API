@@ -18,104 +18,103 @@ namespace CannDash.API.Migrations
             AutomaticMigrationDataLossAllowed = true;
         }
 
-        protected override void Seed(CannDash.API.Infrastructure.CannDashDataContext context)
-        {
-            
-            var placeGenerator = new PlaceNameGenerator();
-            string city = "San Diego";
-            string companyName = string.Empty;
-            string state = "CA";
-            int zipcode = 92101;
+        //protected override void Seed(CannDash.API.Infrastructure.CannDashDataContext context)
+        //{
 
-            if (!context.Dispensaries.Any())
-            {
-                for (int i = 0; i < 20; i++)
-                {
-                    companyName = placeGenerator.GenerateRandomPlaceName();
+        //    var placeGenerator = new PlaceNameGenerator();
+        //    string city = "San Diego";
+        //    string companyName = string.Empty;
+        //    string state = "CA";
+        //    int zipcode = 92101;
 
-                    context.Dispensaries.Add(new Models.Dispensary
-                    {
-                        CompanyName = companyName,
-                        Street = Generator.GenerateAddress().AddressLine,
-                        City = city,
-                        State = state,
-                        ZipCode = zipcode,
-                        Email = companyName + "@me.com",
-                        Phone = "619 123 5678"
-                    });
-                    context.SaveChanges();
-                }
-            }
-            
-            var personGenerator = new PersonNameGenerator();
-            string firstName = String.Empty;
-            string lastName = String.Empty;
-            DateTime dob = DateTime.MinValue;
+        //    if (!context.Dispensaries.Any())
+        //    {
+        //        for (int i = 0; i < 20; i++)
+        //        {
+        //            companyName = placeGenerator.GenerateRandomPlaceName();
 
-            if (!context.Customers.Any())
-            {
-                for (int i = 0; i < 20; i++)
-                {
-                    dob = Generator.GenerateDOB(21, 90);
-                    firstName = personGenerator.GenerateRandomFirstName();
-                    lastName = personGenerator.GenerateRandomLastName();
+        //            context.Dispensaries.Add(new Models.Dispensary
+        //            {
+        //                CompanyName = companyName,
+        //                Street = Generator.GenerateAddress().AddressLine,
+        //                City = city,
+        //                State = state,
+        //                ZipCode = zipcode,
+        //                Email = companyName + "@me.com",
+        //                Phone = "619 123 5678"
+        //            });
+        //            context.SaveChanges();
+        //        }
+        //    }
 
-                    context.CustomerAddresses.Add(
-                        new Models.CustomerAddress
-                        {
-                            CustomerAddressId = i,
-                            Street = Generator.GenerateAddress().AddressLine,
-                            City = city,
-                            State = state,
-                            ZipCode = zipcode,
-                        });
+        //    var personGenerator = new PersonNameGenerator();
+        //    string firstName = String.Empty;
+        //    string lastName = String.Empty;
+        //    DateTime dob = DateTime.MinValue;
 
-                    context.Customers.Add(new Models.Customer
-                    {
-                        DispensaryId = 266,
-                        FirstName = firstName,
-                        LastName = lastName,
-                        CustomerAddressId = i,
-                        Email = firstName + '.' + lastName + "@me.com",
-                        Phone = "619 123 8798",
-                        DateOfBirth = dob,
-                        Age = (DateTime.Today).Year - dob.Year
-                    });
-                    context.SaveChanges();
-                }
-            }
+        //    if (!context.Customers.Any())
+        //    {
+        //        for (int i = 0; i < 20; i++)
+        //        {
+        //            dob = Generator.GenerateDOB(21, 90);
+        //            firstName = personGenerator.GenerateRandomFirstName();
+        //            lastName = personGenerator.GenerateRandomLastName();
 
-            if (!context.Drivers.Any())
-            {
-                for (int i = 0; i < 5; i++)
-                {
-                    dob = Generator.GenerateDOB(21, 90);
-                    firstName = personGenerator.GenerateRandomFirstName();
-                    lastName = personGenerator.GenerateRandomLastName();
+        //            context.CustomerAddresses.Add(
+        //                new Models.CustomerAddress
+        //                {
+        //                    CustomerAddressId = i,
+        //                    Street = Generator.GenerateAddress().AddressLine,
+        //                    City = city,
+        //                    State = state,
+        //                    ZipCode = zipcode,
+        //                });
 
-                    context.Drivers.Add(new Models.Driver
-                    {
-                        DispensaryId = 14,
-                        FirstName = firstName,
-                        LastName = lastName,
-                        Email = firstName + '.' + lastName + "@me.com",
-                        Phone = "619 123 2345",
-                    });
-                    context.SaveChanges();
-                }
-            }
-            //  This method will be called after migrating to the latest version.
+        //            context.Customers.Add(new Models.Customer
+        //            {
+        //                DispensaryId = 266,
+        //                FirstName = firstName,
+        //                LastName = lastName,
+        //                Email = firstName + '.' + lastName + "@me.com",
+        //                Phone = "619 123 8798",
+        //                DateOfBirth = dob,
+        //                Age = (DateTime.Today).Year - dob.Year
+        //            });
+        //            context.SaveChanges();
+        //        }
+        //    }
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
-        }
+        //    if (!context.Drivers.Any())
+        //    {
+        //        for (int i = 0; i < 5; i++)
+        //        {
+        //            dob = Generator.GenerateDOB(21, 90);
+        //            firstName = personGenerator.GenerateRandomFirstName();
+        //            lastName = personGenerator.GenerateRandomLastName();
+
+        //            context.Drivers.Add(new Models.Driver
+        //            {
+        //                DispensaryId = 14,
+        //                FirstName = firstName,
+        //                LastName = lastName,
+        //                Email = firstName + '.' + lastName + "@me.com",
+        //                Phone = "619 123 2345",
+        //            });
+        //            context.SaveChanges();
+        //        }
+        //    }
+        //  This method will be called after migrating to the latest version.
+
+        //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
+        //  to avoid creating duplicate seed data. E.g.
+        //
+        //    context.People.AddOrUpdate(
+        //      p => p.FullName,
+        //      new Person { FullName = "Andrew Peters" },
+        //      new Person { FullName = "Brice Lambson" },
+        //      new Person { FullName = "Rowan Miller" }
+        //    );
+        //
+        //}
     }
 }
