@@ -84,6 +84,28 @@ namespace CannDash.API.Controllers
             return Ok(customers);
         }
 
+        // GET: api/dispensaries/5/customers
+        [ResponseType(typeof(Object))]
+        [HttpGet, Route("api/dispensaries/{dispensaryId}/customerNames")]
+        public IHttpActionResult GetDispensaryCustomerNames(int dispensaryId)
+        {
+            Dispensary dispensary = db.Dispensaries.Find(dispensaryId);
+            if (dispensary == null)
+            {
+                return NotFound();
+            }
+
+            var customers =
+                dispensary.Customers.Select(
+                    c => new {
+                        c.CustomerId,
+                        c.FirstName,
+                        c.LastName
+                    });
+
+            return Ok(customers);
+        }
+
         // GET: api/Dispensaries/5/Drivers
         [ResponseType(typeof(Driver))]
         [HttpGet, Route("api/dispensaries/{dispensaryId}/drivers")]
