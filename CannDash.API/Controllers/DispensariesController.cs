@@ -79,33 +79,9 @@ namespace CannDash.API.Controllers
                 return NotFound();
             }
 
-            var customers =
-                dispensary.Customers.Select(
-                    c => new {
-                        c.CustomerId,
-                        c.DispensaryId,
-                        c.FirstName,
-                        c.LastName,
-                        c.Email,
-                        c.Phone,
-                        c.Gender,
-                        c.DateOfBirth,
-                        c.Age,
-                        c.MedicalReason,
-                        c.DriversLicense,
-                        c.MmicId,
-                        c.MmicExpiration,
-                        c.DoctorLetter
-                    });
-            var withAddress =
-                customers.Select(
-                    c => new {
-                        Customer = c,
-                        Address = db.CustomerAddresses.FirstOrDefault(
-                            a => a.CustomerId == c.CustomerId && a.PrimaryAddress)
-                    });
-
-            return Ok(withAddress);
+            var customers = dispensary.Customers;
+            
+            return Ok(customers);
         }
 
         // GET: api/Dispensaries/5/Drivers
