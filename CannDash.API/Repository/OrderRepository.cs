@@ -49,7 +49,7 @@ namespace CannDash.API.Repository
             var dispensary = _dataContext.Dispensaries.Find(dispensaryId);
 
             return ((from sales in dispensary.Orders
-                     where sales.DispensaryId == dispensaryId && sales.OrderStatus == 3 && (sales.OrderDate >= _dateRepository.startDate() && sales.OrderDate <= _dateRepository.endDate())
+                     where sales.DispensaryId == dispensaryId && sales.OrderStatus == 3 && (sales.OrderDate >= _dateRepository.firstDayOfMonth() && sales.OrderDate <= _dateRepository.todaysDate())
                      select sales.TotalOrderSale).Sum());
         }
     }

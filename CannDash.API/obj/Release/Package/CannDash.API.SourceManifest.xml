@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <sitemanifest>
-  <IisApp path="\\psf\Home\GitHub\20-CannDash\CannDash.API\CannDash.API\obj\Release\Package\PackageTmp" />
-  <setAcl path="\\psf\Home\GitHub\20-CannDash\CannDash.API\CannDash.API\obj\Release\Package\PackageTmp" setAclResourceType="Directory" />
-  <setAcl path="\\psf\Home\GitHub\20-CannDash\CannDash.API\CannDash.API\obj\Release\Package\PackageTmp" setAclUser="anonymousAuthenticationUser" setAclResourceType="Directory" />
+  <IisApp path="C:\Users\robertmartindelcampo\Documents\dev\canndash\server2\CannDash\CannDash.API\obj\Release\Package\PackageTmp" />
+  <setAcl path="C:\Users\robertmartindelcampo\Documents\dev\canndash\server2\CannDash\CannDash.API\obj\Release\Package\PackageTmp" setAclResourceType="Directory" />
+  <setAcl path="C:\Users\robertmartindelcampo\Documents\dev\canndash\server2\CannDash\CannDash.API\obj\Release\Package\PackageTmp" setAclUser="anonymousAuthenticationUser" setAclResourceType="Directory" />
 </sitemanifest>

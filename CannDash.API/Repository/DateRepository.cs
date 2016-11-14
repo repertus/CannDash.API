@@ -64,5 +64,10 @@ namespace CannDash.API.Repository
         {
             return startDate();
         }
+
+        public DateTime firstDayOfMonth()
+        {
+            return new DateTime(todaysDate().Year, todaysDate().Month, 1);
+        }
     }
 }
