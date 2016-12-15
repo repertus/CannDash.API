@@ -231,6 +231,10 @@
     <Compile Include="Migrations\201610182034131_ChangesToOrderAndProductOrderSchemas.Designer.cs">
       <DependentUpon>201610182034131_ChangesToOrderAndProductOrderSchemas.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611141807031_UpToDate.cs" />
+    <Compile Include="Migrations\201611141807031_UpToDate.Designer.cs">
+      <DependentUpon>201611141807031_UpToDate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -296,6 +300,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201610182034131_ChangesToOrderAndProductOrderSchemas.resx">
       <DependentUpon>201610182034131_ChangesToOrderAndProductOrderSchemas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611141807031_UpToDate.resx">
+      <DependentUpon>201611141807031_UpToDate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

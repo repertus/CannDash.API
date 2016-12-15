@@ -188,7 +188,7 @@ namespace CannDash.API.Repository
                             }).ToList();
 
 
-            var emptyData = Enumerable.Range(0, (int)Math.Round((dateRepository.lastWeekEndDate() - dateRepository.lastWeekStartDate()).TotalDays))
+            var emptyData = Enumerable.Range(0, (int)Math.Round((dateRepository.lastWeekEndDate() - dateRepository.lastWeekStartDate()).TotalDays)+1)
                 .Select(i => new
                 {
                     SalesDay = dateRepository.lastWeekStartDate().AddDays(i),

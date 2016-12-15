@@ -146,3 +146,4 @@ C:\Users\robertmartindelcampo\Documents\dev\canndash\server2\CannDash\CannDash.A
 C:\Users\robertmartindelcampo\Documents\dev\canndash\server2\CannDash\CannDash.API\obj\Release\CannDash.API.csproj.GenerateResource.Cache
 C:\Users\robertmartindelcampo\Documents\dev\canndash\server2\CannDash\CannDash.API\obj\Release\CannDash.API.dll
 C:\Users\robertmartindelcampo\Documents\dev\canndash\server2\CannDash\CannDash.API\obj\Release\CannDash.API.pdb
+C:\Users\robertmartindelcampo\Documents\dev\canndash\server2\CannDash\CannDash.API\obj\Release\CannDash.API.Migrations.UpToDate.resources

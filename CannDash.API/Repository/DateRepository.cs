@@ -25,7 +25,7 @@ namespace CannDash.API.Repository
             switch (dayOfWeek)
             {
                 case 1:
-                    firstDayOfWeek = todaysDate();
+                    firstDayOfWeek = new DateTime (todaysDate().Year, todaysDate().Month, todaysDate().Day, 0, 0, 0, 0);
                     break;
                 case 2:
                     firstDayOfWeek = todaysDate().AddDays(-1);
@@ -62,7 +62,7 @@ namespace CannDash.API.Repository
 
         public DateTime lastWeekEndDate()
         {
-            return startDate();
+            return startDate().AddDays(-1);
         }
 
         public DateTime firstDayOfMonth()
